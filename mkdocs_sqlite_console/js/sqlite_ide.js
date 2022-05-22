@@ -27,11 +27,6 @@ function load(ide, base = '', init = '') {
         execute(init, true);
     }
 
-// Connect to the HTML element we 'print' to
-    function print(text) {
-        outputElm.innerHTML = text.replace(/\n/g, '<br>');
-    }
-
     function error(e) {
         outputElm.innerHTML = ''
         errorElm.style.height = '2em';
@@ -145,7 +140,7 @@ function onElementLoaded(elementToObserve, parentStaticElement) {
                 ? document.querySelector(parentStaticElement)
                 : document;
 
-            const observer = new MutationObserver((mutationList, obsrvr) => {
+            const observer = new MutationObserver((_mutationList, obsrvr) => {
                 const divToCheck = document.querySelector(elementToObserve);
 
                 if (divToCheck) {
