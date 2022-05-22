@@ -47,7 +47,7 @@
 <script src="https://epithumia.github.io/mkdocs-sqlite-console//js/sqlite_ide.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"><link rel="stylesheet" href="https://epithumia.github.io/mkdocs-sqlite-console//css/sqlite_ide.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"><link rel="stylesheet" href="https://epithumia.github.io/mkdocs-sqlite-console//css/sqlite_ide.css"><script>path="https://epithumia.github.io/mkdocs-sqlite-console/"</script>
 </head>
   
   
@@ -200,7 +200,7 @@
   
     <li class="md-tabs__item">
       <a href="../licence/" class="md-tabs__link">
-        About
+        A propos
       </a>
     </li>
   
@@ -354,6 +354,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#erreurs" class="md-nav__link">
+    Erreurs
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -384,14 +391,14 @@
       
       
         <label class="md-nav__link" for="__nav_3">
-          About
+          A propos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="About" data-md-level="1">
+      <nav class="md-nav" aria-label="A propos" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          About
+          A propos
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -416,7 +423,7 @@
   
     <li class="md-nav__item">
       <a href="../notes-de-version/" class="md-nav__link">
-        Release Notes
+        Historique des versions
       </a>
     </li>
   
@@ -494,6 +501,13 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs" class="md-nav__link">
+    Erreurs
+  </a>
   
 </li>
         
@@ -596,7 +610,7 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide2").then(() => {
     const ide = document.querySelector("div#ide2");
-    load(ide, 'bases/test.db', '');
+    load(ide, 'https:/epithumia.github.io/mkdocs-sqlite-console/bases/test.db', '');
 }).catch(() => {});
 </script>
 <h4 id="utilisation-dans-les-admonitions-de-mkdocs-materiel">Utilisation dans les <em>admonitions</em> de mkdocs-materiel</h4>
@@ -656,7 +670,11 @@ SELECT COUNT(*) FROM employees;
 </code></pre></div>
 <div class="admonition bug">
 <p class="admonition-title">Bug</p>
-<p>Les blocs ne s'affichent pas correctement dans les adminitions qui sont repliées par défaut:</p>
+<p>Les blocs ne s'affichent pas correctement dans les adminitions qui sont repliées par défaut:
+<div class="highlight"><pre><span></span><code>??? sql &quot;Bloc admonition avec initialisation et code pré-saisi&quot;
+    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
+</code></pre></div>
+Il faut cliquer sur le champ de texte pour que l'IDE s'affiche (incorrectement).</p>
 <details class="sql">
 <summary>Bloc admonition avec initialisation et code pré-saisi</summary>
 <div id="ide5">
@@ -679,6 +697,10 @@ SELECT COUNT(*) FROM employees;
 </script>
 </details>
 </div>
+<h3 id="erreurs">Erreurs</h3>
+<p>Le plugin détectera les fichiers non existants :</p>
+<div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
+</code></pre></div>
 <div id="ide6">
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
@@ -693,7 +715,8 @@ SELECT COUNT(*) FROM employees;
     load(ide, '/', '');
 }).catch(() => {});
 </script>
-
+<div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
+</code></pre></div>
 <div id="ide7">
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
