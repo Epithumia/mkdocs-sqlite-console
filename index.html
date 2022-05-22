@@ -476,7 +476,11 @@ docs/
 <div id="ide1">
 <label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/init1.sql' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -484,7 +488,7 @@ docs/
 <script>
   onElementLoaded("div#ide1").then(() => {
     const ide = document.querySelector("div#ide1");
-    load(ide, '/', '');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
 }).catch(() => {});
 </script>
 <details class="sql" open="open">
@@ -492,7 +496,11 @@ docs/
 <div id="ide2">
 <label for='sqlcommands'>Init + Code</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/init1.sql' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -500,7 +508,7 @@ docs/
 <script>
   onElementLoaded("div#ide2").then(() => {
     const ide = document.querySelector("div#ide2");
-    load(ide, '/', '');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
 }).catch(() => {});
 </script>
 </details>
@@ -509,7 +517,11 @@ docs/
 <div id="ide3">
 <label for='sqlcommands'>Init + Code</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/init1.sql' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -517,14 +529,18 @@ docs/
 <script>
   onElementLoaded("div#ide3").then(() => {
     const ide = document.querySelector("div#ide3");
-    load(ide, '/', '');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
 }).catch(() => {});
 </script>
 </div>
 <div id="ide4">
 <label for='sqlcommands'>IDE avec une base binaire chargée et code pré-saisi</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">--Fichier de base 'bases/test.db' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -532,7 +548,7 @@ docs/
 <script>
   onElementLoaded("div#ide4").then(() => {
     const ide = document.querySelector("div#ide4");
-    load(ide, '/', '');
+    load(ide, 'bases/test.db', '');
 }).catch(() => {});
 </script>
 
