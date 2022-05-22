@@ -55,7 +55,7 @@ function load(ide, base = '', init = '') {
             for (const element of results) {
                 outputElm.appendChild(tableCreate(element.columns, element.values));
             }
-            if (outputElm.childElementCount === 0 && !silent) outputElm.innerHTML = "<p>Query ok</p>";
+            if (outputElm.childElementCount === 0 && !silent) outputElm.innerHTML = "<p>Requête ok</p>";
             toc("Displaying results");
         }
         worker.postMessage({action: 'exec', sql: commands});
