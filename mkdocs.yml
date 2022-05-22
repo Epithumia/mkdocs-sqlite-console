@@ -16,6 +16,8 @@ nav:
         - 'License': 'licence.md'
         - 'Release Notes': 'notes-de-version.md'
 
+repo_url: https://github.com/epithumia/mkdocs-sqlite-console
+site_url: https://epithumia.github.io/mkdocs-sqlite-console
 
 plugins:
   - search

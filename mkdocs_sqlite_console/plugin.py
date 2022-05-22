@@ -67,7 +67,7 @@ class Counter:
         if base != '/':
             try:
                 with open(os.path.abspath(self.config["docs_dir"]) + '/' + base) as f:
-                    base = '/' + base
+                    base = base
                     base = base.replace('//', '/')
             except OSError:
                 sql = "--Fichier de base '" + base + "' introuvable"
@@ -94,17 +94,18 @@ class SQLiteConsole(BasePlugin):
     def on_page_context(self, context, page, config, nav):
         return context
 
-    def on_post_page(self, out, **kwargs):
+    def on_post_page(self, out, page, config, **kwargs):
 
+        base_url = config['site_url']
         codemirror = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
         codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
         codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
         out = out.replace("</head>",
                           "<script src=\"{}\"></script>".format(codemirror)
-                          + "\n<script src=\"/js/sqlite_ide.js\"></script>\n"
+                          + "\n<script src=\"{}/js/sqlite_ide.js\"></script>\n".format(base_url)
                           + "\n<script src=\"{}\"></script>\n".format(codemirror_sql)
                           + "<link rel=\"stylesheet\" href=\"{}\">".format(codemirror_css)
-                          + "<link rel=\"stylesheet\" href=\"/css/sqlite_ide.css\">"
+                          + "<link rel=\"stylesheet\" href=\"{}/css/sqlite_ide.css\">".format(base_url)
                           + "\n</head>")
         return out
 

@@ -7,7 +7,7 @@ function load(ide, base = '', init = '') {
     var commandsElm = ide.querySelector('textarea.sqlcommands');
 
 // Start the worker in which sql.js will run
-    var worker = new Worker("/js/worker.sql-wasm.js");
+    var worker = new Worker("js/worker.sql-wasm.js");
     worker.onerror = error;
 
 // Open a database
