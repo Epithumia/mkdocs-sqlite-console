@@ -298,8 +298,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#licence" class="md-nav__link">
+    Licence
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voir-aussi" class="md-nav__link">
+    Voir aussi
   </a>
   
 </li>
@@ -416,8 +437,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#licence" class="md-nav__link">
+    Licence
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voir-aussi" class="md-nav__link">
+    Voir aussi
   </a>
   
 </li>
@@ -434,24 +476,43 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/epithumia/mkdocs-sqlite-console/edit/master/docs/index.md" title="Editer cette page" class="md-content__button md-icon">
+  <a href="https://github.com/epithumia/mkdocs-sqlite-console/edit/main/docs/index.md" title="Editer cette page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
 <h1 id="mkdocs-sqlite-console">MkDocs-SQLite-Console</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre>
-<ol>
-<li>A</li>
-<li>B</li>
-</ol>
+<p>Mkdocs-SQLite-Console est un plugin pour MkDocs, qui permet d'afficher un IDE SQL (SQLite) permettant d'exécuter du code.
+Le public visé est essentiellement les enseignants et étudiants : les premiers pourront ainsi placer du code que les
+seconds pourront exécuter et ainsi voir le résultat de leur requête.</p>
+<h2 id="installation">Installation</h2>
+<p>Installer le plugin avec pip :</p>
+<p><code>pyhton3 -m pip install git+https://github.com/Epithumia/mkdocs-sqlite-console.git</code></p>
+<p>Pour accéder à la documentation :</p>
+<div class="highlight"><pre><span></span><code>git clone git+https://github.com/Epithumia/mkdocs-sqlite-console.git
+<span class="nb">cd</span> mkdocs-sqlite-console
+pyhton3 -m pip install .<span class="o">[</span>docs<span class="o">]</span>
+mkdocs build
+</code></pre></div>
+<p>Puis dans le dossier <code>docs</code>, activer le plugin dans votre fichier <code>mkdocs.yml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sqlite-console</span><span class="w"></span>
+</code></pre></div></p>
+<blockquote>
+<p><strong>Note:</strong> Si vous n'avez aucune entrée dans la section <code>plugins</code> de votre fichier de configuration, 
+vous voudrez sans doute ajouter le plugin <code>search</code>. MkDocs l'active par défaut s'il n'y a pas 
+d'autres <code>plugins</code>, et dans le cas contraire, MkDocs demande de l'activer explicitement.</p>
+</blockquote>
+<p>Plus d'informations dur les plugins se trouvent dans la <a href="http://www.mkdocs.org/user-guide/plugins/">documentation MkDocs</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>Voir la section <a href="usage/">Guide d'utilisation</a></p>
+<h2 id="licence">Licence</h2>
+<p>Voir la <a href="licence/">licence</a></p>
+<h2 id="voir-aussi">Voir aussi</h2>
+<p>Plus d'informations sur les templates <a href="https://www.mkdocs.org/user-guide/custom-themes/#template-variables">here</a>.</p>
+<p>Plus d'informations sur les blocs <a href="https://www.mkdocs.org/user-guide/styling-your-docs/#overriding-template-blocks">here</a>.</p>
 
               
             </article>
