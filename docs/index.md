@@ -26,9 +26,10 @@ plugins:
   - sqlite-console
 ```
 
-> **Note:** Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration, 
-> vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas 
-> d'autres `plugins`, et dans le cas contraire, MkDocs demande de l'activer explicitement.
+!!! note 
+    Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration, 
+    vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas 
+    d'autres `plugins`, et dans le cas contraire, MkDocs demande de l'activer explicitement.
 
 Plus d'informations dur les plugins se trouvent dans la [documentation MkDocs][mkdocs-plugins].
 
