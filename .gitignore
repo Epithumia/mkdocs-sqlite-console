@@ -1,0 +1,6 @@
+/.idea/
+/site/
+/mkdocs_sqlite_console.egg-info/
+/venv/
+
+.DS_Store

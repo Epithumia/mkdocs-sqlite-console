@@ -1,0 +1,27 @@
+site_name: mkdocs-sqlite-console
+
+theme:
+  name: material
+  language: fr
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+
+nav:
+    - Home: 'index.md'
+    - 'Guide d''utilisation': 'usage.md'
+    - About:
+        - 'License': 'licence.md'
+        - 'Release Notes': 'notes-de-version.md'
+
+
+plugins:
+  - search
+  - sqlite-console
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
