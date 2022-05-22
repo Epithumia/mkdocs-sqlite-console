@@ -12,9 +12,9 @@ theme:
 nav:
     - Home: 'index.md'
     - 'Guide d''utilisation': 'usage.md'
-    - About:
+    - A propos:
         - 'License': 'licence.md'
-        - 'Release Notes': 'notes-de-version.md'
+        - 'Historique des versions': 'notes-de-version.md'
 
 repo_url: https://github.com/epithumia/mkdocs-sqlite-console
 site_url: https://epithumia.github.io/mkdocs-sqlite-console

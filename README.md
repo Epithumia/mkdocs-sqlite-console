@@ -34,7 +34,7 @@ Plus d'informations dur les plugins se trouvent dans la [documentation MkDocs][m
 
 ## Usage
 
-Voir la section [Guide d'utilisation](usage.md)
+Voir la section [Guide d'utilisation](https://epithumia.github.io/mkdocs-sqlite-console/usage/)
 
 ## Licence
 

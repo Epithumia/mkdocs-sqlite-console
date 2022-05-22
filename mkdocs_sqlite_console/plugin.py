@@ -65,9 +65,10 @@ class Counter:
                 sql = "--Fichier d'initialisation '" + init + "' introuvable"
                 init = ''
         if base != '/':
+            base_url = self.config['site_url']
             try:
                 with open(os.path.abspath(self.config["docs_dir"]) + '/' + base) as f:
-                    base = base
+                    base = base_url + '/' + base
                     base = base.replace('//', '/')
             except OSError:
                 sql = "--Fichier de base '" + base + "' introuvable"
@@ -106,7 +107,7 @@ class SQLiteConsole(BasePlugin):
                           + "\n<script src=\"{}\"></script>\n".format(codemirror_sql)
                           + "<link rel=\"stylesheet\" href=\"{}\">".format(codemirror_css)
                           + "<link rel=\"stylesheet\" href=\"{}/css/sqlite_ide.css\">".format(base_url)
-                          + "\n</head>")
+                          + "<script>path=\"{}\"</script>\n</head>".format(base_url))
         return out
 
     def on_config(self, config):
