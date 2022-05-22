@@ -18,6 +18,7 @@ nav:
 
 repo_url: https://github.com/epithumia/mkdocs-sqlite-console
 site_url: https://epithumia.github.io/mkdocs-sqlite-console
+edit_uri: edit/main/docs/
 
 plugins:
   - search
