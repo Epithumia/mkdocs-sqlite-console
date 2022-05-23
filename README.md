@@ -30,7 +30,7 @@ plugins:
 > vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas 
 > d'autres `plugins`, et dans le cas contraire, MkDocs demande de l'activer explicitement.
 
-Plus d'informations dur les plugins se trouvent dans la [documentation MkDocs][mkdocs-plugins].
+Plus d'informations sur les plugins se trouvent dans la [documentation MkDocs][mkdocs-plugins].
 
 ## Usage
 
