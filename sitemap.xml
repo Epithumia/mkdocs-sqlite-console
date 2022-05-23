@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://epithumia.github.io/mkdocs-sqlite-console/</loc>
-         <lastmod>2022-05-22</lastmod>
+         <lastmod>2022-05-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://epithumia.github.io/mkdocs-sqlite-console/licence/</loc>
-         <lastmod>2022-05-22</lastmod>
+         <lastmod>2022-05-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://epithumia.github.io/mkdocs-sqlite-console/notes-de-version/</loc>
-         <lastmod>2022-05-22</lastmod>
+         <lastmod>2022-05-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://epithumia.github.io/mkdocs-sqlite-console/usage/</loc>
-         <lastmod>2022-05-22</lastmod>
+         <lastmod>2022-05-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
