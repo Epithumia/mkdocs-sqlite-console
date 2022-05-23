@@ -1,7 +1,6 @@
 import os
 import re
 
-from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import File
 
@@ -66,17 +65,17 @@ class Counter:
                 init = ''
         if base != '/':
             base_url = self.config['site_url']
-            try:
-                with open(os.path.abspath(self.config["docs_dir"]) + '/' + base) as f:
-                    base = base_url + '/' + base
-                    base = base.replace('//', '/')
-            except OSError:
+            if os.path.isfile(os.path.abspath(self.config["docs_dir"]) + '/' + base):
+                base = base_url + '/' + base
+                base = base.replace('//', '/')
+            else:
                 sql = "--Fichier de base '" + base + "' introuvable"
                 init = ''
                 base = '/'
         return SKELETON.format(numide=self.count, title=titre, base=base, sqlcode=sql, init=init)
 
 
+# noinspection PyUnusedLocal
 class SQLiteConsole(BasePlugin):
 
     def __init__(self, **kwargs):
@@ -92,11 +91,7 @@ class SQLiteConsole(BasePlugin):
 
         return html
 
-    def on_page_context(self, context, page, config, nav):
-        return context
-
     def on_post_page(self, out, page, config, **kwargs):
-
         base_url = config['site_url']
         codemirror = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
         codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
@@ -109,9 +104,6 @@ class SQLiteConsole(BasePlugin):
                           + "<link rel=\"stylesheet\" href=\"{}/css/sqlite_ide.css\">".format(base_url)
                           + "<script>path=\"{}\"</script>\n</head>".format(base_url))
         return out
-
-    def on_config(self, config):
-        return config
 
     def on_files(self, files, config):
         files.append(File('sqlite_ide.css', CSS_PATH,
