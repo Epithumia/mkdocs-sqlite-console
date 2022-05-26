@@ -8,3 +8,7 @@
 
 - Correction de problèmes de chemins 
 - Documentation complétée
+
+### 1.0.1a
+
+- Inclusion des fichiers css/* et js/* dans l'installation.

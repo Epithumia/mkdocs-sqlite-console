@@ -38,5 +38,9 @@ setup(
         'mkdocs.plugins': [
             'sqlite-console = mkdocs_sqlite_console:SQLiteConsole'
         ]
-    }
+    },
+    package_data={
+        "": ["css/*", "js/*"],
+    },
+    include_package_data=True
 )
