@@ -355,6 +355,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage-avec-le-plugin-macros" class="md-nav__link">
+    Usage avec le plugin macros
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erreurs" class="md-nav__link">
     Erreurs
   </a>
@@ -505,6 +512,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage-avec-le-plugin-macros" class="md-nav__link">
+    Usage avec le plugin macros
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erreurs" class="md-nav__link">
     Erreurs
   </a>
@@ -546,6 +560,18 @@
 <p>Si vous n'avez aucune entrée dans la section <code>plugins</code> de votre fichier de configuration, 
 vous voudrez sans doute ajouter le plugin <code>search</code>. MkDocs l'active par défaut s'il n'y a pas 
 d'autres <code>plugins</code>, et dans le cas contraire, MkDocs demande de l'activer explicitement.</p>
+</div>
+<p>Si vous voulez déployer votre site (à l'aide de <code>mkdocs build</code> ou <code>mkdocs gh-deploy</code>), il faut également ajouter à votre
+fichier <code>mkdocs.yml</code> une ligne du type
+<div class="highlight"><pre><span></span><code><span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://monsite.url/chemin</span><span class="w"></span>
+</code></pre></div>
+Par exemple, ce site est configuré avec
+<div class="highlight"><pre><span></span><code><span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://epithumia.github.io/mkdocs-sqlite-console</span><span class="w"></span>
+</code></pre></div></p>
+<div class="admonition error">
+<p class="admonition-title">site_url</p>
+<p>Si vous n'avez pas défini la variable <code>site_url</code> dans votre fichier <code>mkdocs.yml</code>, les commandes 
+<code>mkdocs build</code> et <code>mkdocs gh-deploy</code> ne fonctionneront pas et signaleront la nécessité de le faire.</p>
 </div>
 <h2 id="afficher-la-consoleide">Afficher la console/IDE</h2>
 <p>On peut afficher une console/IDE SQLite grâce à la commande <code>{{ sqlide paramètres }}</code>. Cette commande accepte quatre paramètres, tous optionnels :</p>
@@ -697,11 +723,37 @@ SELECT COUNT(*) FROM employees;
 </script>
 </details>
 </div>
+<h3 id="usage-avec-le-plugin-macros">Usage avec le plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">macros</a></h3>
+<p>Le plugin macros utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de 
+fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
+chargée avec la syntaxe suivante :
+<div class="highlight"><pre><span></span><code>{!{ sqlide paramètres }!}
+</code></pre></div>
+Par exemple <code>{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}</code>
+affichera :</p>
+<div id="ide6">
+<label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
+<br>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
+<button id="execute" class="sqlbutton execute">Exécuter</button>
+<div id="error" class="sqlerror"></div>
+<pre id="output" class="sqloutput"></pre>
+</div>
+<script>
+  onElementLoaded("div#ide6").then(() => {
+    const ide = document.querySelector("div#ide6");
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
+}).catch(() => {});
+</script>
 <h3 id="erreurs">Erreurs</h3>
 <p>Le plugin détectera les fichiers non existants :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
 </code></pre></div>
-<div id="ide6">
+<div id="ide7">
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">--Fichier de base 'bases/basem.db' introuvable</textarea>
@@ -710,14 +762,14 @@ SELECT COUNT(*) FROM employees;
 <pre id="output" class="sqloutput"></pre>
 </div>
 <script>
-  onElementLoaded("div#ide6").then(() => {
-    const ide = document.querySelector("div#ide6");
+  onElementLoaded("div#ide7").then(() => {
+    const ide = document.querySelector("div#ide7");
     load(ide, '/', '');
 }).catch(() => {});
 </script>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
 </code></pre></div>
-<div id="ide7">
+<div id="ide8">
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
@@ -726,8 +778,8 @@ SELECT COUNT(*) FROM employees;
 <pre id="output" class="sqloutput"></pre>
 </div>
 <script>
-  onElementLoaded("div#ide7").then(() => {
-    const ide = document.querySelector("div#ide7");
+  onElementLoaded("div#ide8").then(() => {
+    const ide = document.querySelector("div#ide8");
     load(ide, '/', '');
 }).catch(() => {});
 </script>
