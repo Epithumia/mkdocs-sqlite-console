@@ -8,11 +8,25 @@ plugins:
   - search
   - sqlite-console
 ```
+
 !!! note 
     Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration, 
     vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas 
     d'autres `plugins`, et dans le cas contraire, MkDocs demande de l'activer explicitement.
 
+Si vous voulez déployer votre site (à l'aide de `mkdocs build` ou `mkdocs gh-deploy`), il faut également ajouter à votre
+fichier `mkdocs.yml` une ligne du type
+```yaml
+site_url: https://monsite.url/chemin
+```
+Par exemple, ce site est configuré avec
+```yaml
+site_url: https://epithumia.github.io/mkdocs-sqlite-console
+```
+
+!!! error "site_url"
+    Si vous n'avez pas défini la variable `site_url` dans votre fichier `mkdocs.yml`, les commandes 
+    `mkdocs build` et `mkdocs gh-deploy` ne fonctionneront pas et signaleront la nécessité de le faire.
 
 ## Afficher la console/IDE
 
@@ -91,6 +105,19 @@ donne
     ??? sql "Bloc admonition avec initialisation et code pré-saisi"
         {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 
+### Usage avec le plugin [macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/)
+
+Le plugin macros utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de 
+fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
+chargée avec la syntaxe suivante :
+```markdown
+{!{ sqlide paramètres }!}
+```
+Par exemple `{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}`
+affichera :
+
+{{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }}
+
 ### Erreurs
 
 Le plugin détectera les fichiers non existants :
@@ -107,4 +134,3 @@ Le plugin détectera les fichiers non existants :
 ```
 
 {{sqlide titre="Erreur fichier sql manquant" init=sql/initm.sql sql=sql/codem.sql }}
-

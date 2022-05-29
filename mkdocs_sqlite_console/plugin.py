@@ -1,6 +1,7 @@
 import os
 import re
 
+from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import File
 
@@ -83,8 +84,10 @@ class SQLiteConsole(BasePlugin):
 
     def on_page_content(self, html, page, config, files):
         import re
-
-        regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
+        if 'macros' in config['plugins']:
+            regex = r"(?:^|\n)\s*?<p>\s*?{!{\s*?sqlide.*?\s+?(.*?)\s*?}!}</p>(?:\n|$)"
+        else:
+            regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
 
         c = Counter(config)
         html = re.sub(regex, c.insert_ide, html, flags=re.MULTILINE | re.DOTALL)
@@ -116,3 +119,9 @@ class SQLiteConsole(BasePlugin):
                           config['site_dir'] + '/js/', False))
 
         return files
+
+    def on_config(self, config, **kwargs):
+        if 'site_url' not in config.keys() or config['site_url'] == '':
+            raise PluginError("Le fichier de configuration doit comporter une valeur pour la clef 'site_url'")
+
+        return config

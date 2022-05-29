@@ -43,9 +43,9 @@ Voir la [licence](licence.md)
 
 ## Voir aussi
 
-Plus d'informations sur les templates [here][mkdocs-template].
+Plus d'informations sur les templates [ici][mkdocs-template].
 
-Plus d'informations sur les blocs [here][mkdocs-block].
+Plus d'informations sur les blocs [ici][mkdocs-block].
 
 [mkdocs-plugins]: http://www.mkdocs.org/user-guide/plugins/
 [mkdocs-template]: https://www.mkdocs.org/user-guide/custom-themes/#template-variables
