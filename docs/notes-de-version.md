@@ -13,7 +13,7 @@
 
 - Inclusion des fichiers css/* et js/* dans l'installation.
 
-### 1.0.2
+## 1.0.2
 
 - Cohabitation possible avec le plugin `macros`.
 - La commande `mkdocs build` requiert explicitement que `site_url` soit configuré.
