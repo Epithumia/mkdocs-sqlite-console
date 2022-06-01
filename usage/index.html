@@ -343,8 +343,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#utilisation-dans-les-admonitions-de-mkdocs-materiel" class="md-nav__link">
-    Utilisation dans les admonitions de mkdocs-materiel
+  <a href="#base-partagee-entre-plusieurs-consoles" class="md-nav__link">
+    Base partagée entre plusieurs consoles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-dans-les-admonitions-de-mkdocs-material" class="md-nav__link">
+    Utilisation dans les admonitions de mkdocs-material
   </a>
   
 </li>
@@ -500,8 +507,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#utilisation-dans-les-admonitions-de-mkdocs-materiel" class="md-nav__link">
-    Utilisation dans les admonitions de mkdocs-materiel
+  <a href="#base-partagee-entre-plusieurs-consoles" class="md-nav__link">
+    Base partagée entre plusieurs consoles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-dans-les-admonitions-de-mkdocs-material" class="md-nav__link">
+    Utilisation dans les admonitions de mkdocs-material
   </a>
   
 </li>
@@ -600,6 +614,7 @@ Par exemple, ce site est configuré avec
 <div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;IDE avec initialisation et code pré-saisi&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
 </code></pre></div></p>
 <p>On obtient l'affichage ci-dessous :</p>
+
 <div id="ide1">
 <label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
 <br>
@@ -615,12 +630,13 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide1").then(() => {
     const ide = document.querySelector("div#ide1");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', );
 }).catch(() => {});
 </script>
 <p>On peut aussi charger une base directement :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;IDE avec une base binaire chargée et code pré-saisi&quot; base=&quot;bases/test.db&quot; sql=&quot;sql/code.sql&quot; }}
 </code></pre></div>
+
 <div id="ide2">
 <label for='sqlcommands'>IDE avec une base binaire chargée et code pré-saisi</label>
 <br>
@@ -636,25 +652,20 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide2").then(() => {
     const ide = document.querySelector("div#ide2");
-    load(ide, 'https:/epithumia.github.io/mkdocs-sqlite-console/bases/test.db', '');
+    load(ide, 'https:/epithumia.github.io/mkdocs-sqlite-console/bases/test.db', '', );
 }).catch(() => {});
 </script>
-<h4 id="utilisation-dans-les-admonitions-de-mkdocs-materiel">Utilisation dans les <em>admonitions</em> de mkdocs-materiel</h4>
-<p>On peut appeler le code à l'intérieur d'un admonition :</p>
-<div class="highlight"><pre><span></span><code>!!! sql &quot;Bloc accordéon avec initialisation et code pré-saisi&quot;
-    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
-</code></pre></div>
-<p>donne :</p>
-<div class="admonition sql">
-<p class="admonition-title">Bloc admonition avec initialisation et code pré-saisi</p>
-<div id="ide3">
-<label for='sqlcommands'>Init + Code</label>
-<br>
-<textarea id="sqlcommands" class="sqlcommands">SELECT *
-FROM employees;
+<h4 id="base-partagee-entre-plusieurs-consoles">Base partagée entre plusieurs consoles</h4>
+<p>Il est possible de donner un argument supplémentaire pour partager une base entre plusieurs consoles/IDE :</p>
+<div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;IDE avec initialisation dans l&#39;espace bdd1&quot; init=&quot;sql/init1.sql&quot; espace=&quot;bdd1&quot; }}
 
-SELECT COUNT(*) FROM employees;
-</textarea>
+{{ sqlide titre=&quot;IDE sans initialisation, avec code pré-saisi, dans l&#39;espace bdd1&quot; sql=&quot;sql/code.sql&quot; espace=bdd1}}
+</code></pre></div>
+<script>var bdd1 = new Worker(path + "/js/worker.sql-wasm.js");</script>
+<div id="ide3">
+<label for='sqlcommands'>IDE avec initialisation dans l'espace bdd1</label>
+<br>
+<textarea id="sqlcommands" class="sqlcommands"></textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -662,18 +673,13 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide3").then(() => {
     const ide = document.querySelector("div#ide3");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', bdd1);
 }).catch(() => {});
 </script>
-</div>
-<p><div class="highlight"><pre><span></span><code>???+ sql &quot;Bloc accordéon avec initialisation et code pré-saisi&quot;
-    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
-</code></pre></div>
-donne</p>
-<details class="sql" open="open">
-<summary>Bloc accordéon avec initialisation et code pré-saisi</summary>
+
+
 <div id="ide4">
-<label for='sqlcommands'>Init + Code</label>
+<label for='sqlcommands'>IDE sans initialisation, avec code pré-saisi, dans l'espace bdd1</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
 FROM employees;
@@ -687,22 +693,18 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide4").then(() => {
     const ide = document.querySelector("div#ide4");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
+    load(ide, '/', '', bdd1);
 }).catch(() => {});
 </script>
-</details>
-<div class="highlight"><pre><span></span><code>!!! sql &quot;Bloc adminition avec initialisation et code pré-saisi&quot;
+<h4 id="utilisation-dans-les-admonitions-de-mkdocs-material">Utilisation dans les <em>admonitions</em> de mkdocs-material</h4>
+<p>On peut appeler le code à l'intérieur d'une admonition :</p>
+<div class="highlight"><pre><span></span><code>!!! sql &quot;Bloc admonition avec initialisation et code pré-saisi&quot;
     {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
 </code></pre></div>
-<div class="admonition bug">
-<p class="admonition-title">Bug</p>
-<p>Les blocs ne s'affichent pas correctement dans les adminitions qui sont repliées par défaut:
-<div class="highlight"><pre><span></span><code>??? sql &quot;Bloc admonition avec initialisation et code pré-saisi&quot;
-    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
-</code></pre></div>
-Il faut cliquer sur le champ de texte pour que l'IDE s'affiche (incorrectement).</p>
-<details class="sql">
-<summary>Bloc admonition avec initialisation et code pré-saisi</summary>
+<p>donne :</p>
+<div class="admonition sql">
+<p class="admonition-title">Bloc admonition avec initialisation et code pré-saisi</p>
+
 <div id="ide5">
 <label for='sqlcommands'>Init + Code</label>
 <br>
@@ -718,21 +720,19 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide5").then(() => {
     const ide = document.querySelector("div#ide5");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', );
 }).catch(() => {});
 </script>
-</details>
 </div>
-<h3 id="usage-avec-le-plugin-macros">Usage avec le plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">macros</a></h3>
-<p>Le plugin macros utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de 
-fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
-chargée avec la syntaxe suivante :
-<div class="highlight"><pre><span></span><code>{!{ sqlide paramètres }!}
+<p><div class="highlight"><pre><span></span><code>???+ sql &quot;Bloc accordéon avec initialisation et code pré-saisi&quot;
+    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
 </code></pre></div>
-Par exemple <code>{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}</code>
-affichera :</p>
+donne</p>
+<details class="sql" open="open">
+<summary>Bloc accordéon avec initialisation et code pré-saisi</summary>
+
 <div id="ide6">
-<label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
+<label for='sqlcommands'>Init + Code</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
 FROM employees;
@@ -746,14 +746,73 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide6").then(() => {
     const ide = document.querySelector("div#ide6");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n');
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', );
+}).catch(() => {});
+</script>
+</details>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
+<p>Les blocs ne s'affichent pas correctement dans les admonitions qui sont repliées par défaut :
+<div class="highlight"><pre><span></span><code>??? sql &quot;Bloc admonition avec initialisation et code pré-saisi&quot;
+    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
+</code></pre></div>
+Il faut cliquer sur le champ de texte pour que l'IDE s'affiche (incorrectement).</p>
+<details class="sql">
+<summary>Bloc admonition avec initialisation et code pré-saisi</summary>
+
+<div id="ide7">
+<label for='sqlcommands'>Init + Code</label>
+<br>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
+<button id="execute" class="sqlbutton execute">Exécuter</button>
+<div id="error" class="sqlerror"></div>
+<pre id="output" class="sqloutput"></pre>
+</div>
+<script>
+  onElementLoaded("div#ide7").then(() => {
+    const ide = document.querySelector("div#ide7");
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', );
+}).catch(() => {});
+</script>
+</details>
+</div>
+<h3 id="usage-avec-le-plugin-macros">Usage avec le plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">macros</a></h3>
+<p>Le plugin macros utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de 
+fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
+chargée avec la syntaxe suivante :
+<div class="highlight"><pre><span></span><code>{!{ sqlide paramètres }!}
+</code></pre></div>
+Par exemple <code>{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}</code>
+affichera :</p>
+
+<div id="ide8">
+<label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
+<br>
+<textarea id="sqlcommands" class="sqlcommands">SELECT *
+FROM employees;
+
+SELECT COUNT(*) FROM employees;
+</textarea>
+<button id="execute" class="sqlbutton execute">Exécuter</button>
+<div id="error" class="sqlerror"></div>
+<pre id="output" class="sqloutput"></pre>
+</div>
+<script>
+  onElementLoaded("div#ide8").then(() => {
+    const ide = document.querySelector("div#ide8");
+    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', );
 }).catch(() => {});
 </script>
 <h3 id="erreurs">Erreurs</h3>
 <p>Le plugin détectera les fichiers non existants :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
 </code></pre></div>
-<div id="ide7">
+
+<div id="ide9">
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">--Fichier de base 'bases/basem.db' introuvable</textarea>
@@ -762,14 +821,15 @@ SELECT COUNT(*) FROM employees;
 <pre id="output" class="sqloutput"></pre>
 </div>
 <script>
-  onElementLoaded("div#ide7").then(() => {
-    const ide = document.querySelector("div#ide7");
-    load(ide, '/', '');
+  onElementLoaded("div#ide9").then(() => {
+    const ide = document.querySelector("div#ide9");
+    load(ide, '/', '', );
 }).catch(() => {});
 </script>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
 </code></pre></div>
-<div id="ide8">
+
+<div id="ide10">
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
@@ -778,9 +838,9 @@ SELECT COUNT(*) FROM employees;
 <pre id="output" class="sqloutput"></pre>
 </div>
 <script>
-  onElementLoaded("div#ide8").then(() => {
-    const ide = document.querySelector("div#ide8");
-    load(ide, '/', '');
+  onElementLoaded("div#ide10").then(() => {
+    const ide = document.querySelector("div#ide10");
+    load(ide, '/', '', );
 }).catch(() => {});
 </script>
 

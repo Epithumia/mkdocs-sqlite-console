@@ -1,17 +1,29 @@
 // noinspection SqlNoDataSourceInspection
 
-function load(ide, base = '', init = '') {
+function load(ide, base = '', init = '', espace='') {
     var execBtn = ide.querySelector("button.execute");
     var outputElm = ide.querySelector('pre.sqloutput');
     var errorElm = ide.querySelector('div.sqlerror');
     var commandsElm = ide.querySelector('textarea.sqlcommands');
 
 // Start the worker in which sql.js will run
-    var worker = new Worker(path + "/js/worker.sql-wasm.js");
-    worker.onerror = error;
+    var worker = espace;
+    var neww;
+    if (espace === '') {
+        worker = new Worker(path + "/js/worker.sql-wasm.js");
+        worker.onerror = error;
+        neww = true;
+    } else {
+        if (worker.onerror !== null) {
+            worker.onerror = error;
+            neww = true;
+        } else {
+            neww = false;
+        }
 
+    }
 // Open a database
-    worker.postMessage({action: 'open'});
+    if (neww) worker.postMessage({action: 'open'});
     if (base !== '/') {
         const u = new URL(base)
         fetch(u).then(res => {
