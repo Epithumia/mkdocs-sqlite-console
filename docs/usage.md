@@ -67,12 +67,26 @@ On peut aussi charger une base directement :
 
 {{sqlide titre="IDE avec une base binaire chargée et code pré-saisi" base="bases/test.db" sql="sql/code.sql" }}
 
-#### Utilisation dans les *admonitions* de mkdocs-materiel
+#### Base partagée entre plusieurs consoles
 
-On peut appeler le code à l'intérieur d'un admonition :
+Il est possible de donner un argument supplémentaire pour partager une base entre plusieurs consoles/IDE :
 
 ```markdown
-!!! sql "Bloc accordéon avec initialisation et code pré-saisi"
+{{ sqlide titre="IDE avec initialisation dans l'espace bdd1" init="sql/init1.sql" espace="bdd1" }}
+
+{{ sqlide titre="IDE sans initialisation, avec code pré-saisi, dans l'espace bdd1" sql="sql/code.sql" espace=bdd1}}
+```
+
+{{ sqlide titre="IDE avec initialisation dans l'espace bdd1" init="sql/init1.sql" espace="bdd1" }}
+
+{{ sqlide titre="IDE sans initialisation, avec code pré-saisi, dans l'espace bdd1" sql="sql/code.sql" espace=bdd1}}
+
+#### Utilisation dans les *admonitions* de mkdocs-material
+
+On peut appeler le code à l'intérieur d'une admonition :
+
+```markdown
+!!! sql "Bloc admonition avec initialisation et code pré-saisi"
     {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 ```
 
@@ -90,13 +104,9 @@ donne
 ???+ sql "Bloc accordéon avec initialisation et code pré-saisi"
     {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 
-```markdown
-!!! sql "Bloc adminition avec initialisation et code pré-saisi"
-    {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
-```
 
 !!! bug
-    Les blocs ne s'affichent pas correctement dans les adminitions qui sont repliées par défaut:
+    Les blocs ne s'affichent pas correctement dans les admonitions qui sont repliées par défaut :
     ```markdown
     ??? sql "Bloc admonition avec initialisation et code pré-saisi"
         {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}

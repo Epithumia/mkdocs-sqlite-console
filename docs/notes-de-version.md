@@ -17,3 +17,7 @@
 
 - Cohabitation possible avec le plugin `macros`.
 - La commande `mkdocs build` requiert explicitement que `site_url` soit configuré.
+
+## 1.0.3
+
+- Possibilité de partager un worker entre plusieurs IDE pour exécuter différentes séquences sur la même BDD

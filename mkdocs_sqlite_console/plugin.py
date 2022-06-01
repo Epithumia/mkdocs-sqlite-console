@@ -14,6 +14,7 @@ CSS_PATH = BASE_PATH + '/css/'
 JS_PATH = BASE_PATH + '/js/'
 
 SKELETON = """
+{workerinit}
 <div id="ide{numide}">
 <label for='sqlcommands'>{title}</label>
 <br>
@@ -25,7 +26,7 @@ SKELETON = """
 <script>
   onElementLoaded("div#ide{numide}").then(() => {{
     const ide = document.querySelector("div#ide{numide}");
-    load(ide, '{base}', '{init}');
+    load(ide, '{base}', '{init}', {worker});
 }}).catch(() => {{}});
 </script>
 """
@@ -35,6 +36,7 @@ class Counter:
     def __init__(self, config):
         self.count = 0
         self.config = config
+        self.spaces = {}
 
     def insert_ide(self, macro):
         self.count += 1
@@ -42,11 +44,24 @@ class Counter:
         regex_init = r".*?init=[\"\']?\b([^\s]*)\b"
         regex_base = r".*?base=[\"\']?\b([^\s]*)\b"
         regex_sql = r".*?sql=[\"\']?\b([^\s]*)\b"
+        regex_space = r".*?espace=[\"\']?\b([^\s]*)\b"
         params = str(macro.groups(0)[0])
         titre = ''.join(re.findall(regex_titre, params)) or "Sql"
         init = ''.join(re.findall(regex_init, params)) or ''
         base = ''.join(re.findall(regex_base, params)) or '/'
         sql = ''.join(re.findall(regex_sql, params)) or ''
+        space = ''.join(re.findall(regex_space, params)) or None
+        worker = ''
+        workerinit = ''
+        if space:
+            if space not in self.spaces:
+                self.spaces[space] = 0
+                workerinit = '<script>var {worker} = new Worker(path + "/js/worker.sql-wasm.js");</script>'.format(worker=space)
+                worker = space
+            else:
+                self.spaces[space] += 1
+                workerinit = ''
+                worker = space
         if sql != '':
             try:
                 with open(os.path.abspath(self.config["docs_dir"]) + '/' + sql) as f:
@@ -73,7 +88,7 @@ class Counter:
                 sql = "--Fichier de base '" + base + "' introuvable"
                 init = ''
                 base = '/'
-        return SKELETON.format(numide=self.count, title=titre, base=base, sqlcode=sql, init=init)
+        return SKELETON.format(numide=self.count, title=titre, base=base, sqlcode=sql, init=init, worker=worker, workerinit=workerinit)
 
 
 # noinspection PyUnusedLocal
