@@ -1,12 +1,12 @@
 // noinspection SqlNoDataSourceInspection
 
-function load(ide, base = '', init = '', espace='') {
+function load(ide, base = '', init = '', run='', espace='') {
     var execBtn = ide.querySelector("button.execute");
     var outputElm = ide.querySelector('pre.sqloutput');
     var errorElm = ide.querySelector('div.sqlerror');
     var commandsElm = ide.querySelector('textarea.sqlcommands');
 
-// Start the worker in which sql.js will run
+    // Start the worker in which sql.js will run
     var worker = espace;
     var neww;
     if (espace === '') {
@@ -34,10 +34,12 @@ function load(ide, base = '', init = '', espace='') {
             } catch (exception) {
                 worker.postMessage({action: 'open', buffer: buf});
             }
+            if (run !== '') {execute(run, false);}
         });
     }
-    if (init !== '') {
+    else if (init !== '') {
         execute(init, true);
+        if (run !=='') execute(run, false);
     }
 
     function error(e) {
