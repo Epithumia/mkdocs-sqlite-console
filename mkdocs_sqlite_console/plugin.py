@@ -26,7 +26,7 @@ SKELETON = """
 <script>
   onElementLoaded("div#ide{numide}").then(() => {{
     const ide = document.querySelector("div#ide{numide}");
-    load(ide, '{base}', '{init}', {worker});
+    load(ide, '{base}', '{init}', '{autoexec}', {worker});
 }}).catch(() => {{}});
 </script>
 """
@@ -47,6 +47,7 @@ class Counter:
         regex_space = r".*?espace=[\"\']?\b([^\s]*)\b"
         params = str(macro.groups(0)[0])
         titre = ''.join(re.findall(regex_titre, params)) or "Sql"
+        autoexec = True if 'autoexec' in params else ''
         init = ''.join(re.findall(regex_init, params)) or ''
         base = ''.join(re.findall(regex_base, params)) or '/'
         sql = ''.join(re.findall(regex_sql, params)) or ''
@@ -67,6 +68,10 @@ class Counter:
                 with open(os.path.abspath(self.config["docs_dir"]) + '/' + sql) as f:
                     sql = f.readlines()
                     sql = ''.join(sql)
+                    if autoexec:
+                        autoexec = sql
+                        autoexec = autoexec.replace('\n', '\\n')
+                        autoexec = autoexec.replace('\'', '\\\'')
             except OSError:
                 sql = "Fichier '" + sql + "' introuvable"
         if init != '':
@@ -88,7 +93,7 @@ class Counter:
                 sql = "--Fichier de base '" + base + "' introuvable"
                 init = ''
                 base = '/'
-        return SKELETON.format(numide=self.count, title=titre, base=base, sqlcode=sql, init=init, worker=worker, workerinit=workerinit)
+        return SKELETON.format(numide=self.count, title=titre, base=base, sqlcode=sql, init=init, autoexec=autoexec, worker=worker, workerinit=workerinit)
 
 
 # noinspection PyUnusedLocal

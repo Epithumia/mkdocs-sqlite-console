@@ -36,6 +36,7 @@ On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramè
 - un chemin vers un script SQL d'initialisation *init* : par exemple `init=sql/init.md`
 - un chemin vers une *base* SQLite : par exemple `bases/test.db`
 - un chemin vers un fichier de code *sql* pré-saisi dans l'IDE : par exemple `sql="sql/code.sql"`
+- si le mot clef *autoexec* est présent, alors le contenu de code sera exécuté comme si l'utilisateur avit cliqué le bouton
 
 !!! tip "Astuce"
     A part pour le titre, les apostrophes ou guillemets sont optionnels. Ainsi, `sql="sql/code.sql"`,
@@ -45,6 +46,7 @@ On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramè
     - le titre *doit* être entre guillemets
     - les chemins vers les fichiers sont relatifs à la racine du site
     - les chemins ne peuvent pas contenir d'espace
+    - les options base et init sont mutuellement exclusives ; l'option base est prioritaire. 
 
 ### Quelques exemples
 
@@ -62,10 +64,10 @@ On obtient l'affichage ci-dessous :
 On peut aussi charger une base directement :
 
 ```markdown
-{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi" base="bases/test.db" sql="sql/code.sql" }}
+{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté" base="bases/test.db" sql="sql/code.sql" autoexec}}
 ```
 
-{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi" base="bases/test.db" sql="sql/code.sql" }}
+{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté" base="bases/test.db" sql="sql/code.sql" autoexec}}
 
 #### Base partagée entre plusieurs consoles
 

@@ -21,3 +21,7 @@
 ## 1.0.3
 
 - Possibilité de partager un worker entre plusieurs IDE pour exécuter différentes séquences sur la même BDD
+
+## 1.0.4
+
+- Possibilité d'autoexécuter le code sql pré-saisi dans la console
