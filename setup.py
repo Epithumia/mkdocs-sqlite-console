@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='mkdocs-sqlite-console',
-    version='1.0.4',
+    version='1.0.4b',
     description='A MkDocs plugin that adds a sqlite IDE.',
     long_description="""A MkDocs plugin that adds a sqlite IDE.
     
