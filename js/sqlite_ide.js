@@ -69,7 +69,7 @@ function load(ide, base = '', init = '', run='', espace='') {
             for (const element of results) {
                 outputElm.appendChild(tableCreate(element.columns, element.values));
             }
-            if (outputElm.childElementCount === 0 && !silent) outputElm.innerHTML = "<p>Requête ok</p>";
+            if (outputElm.childElementCount === 0 && !silent) outputElm.innerHTML = "<p>Requête exécutée correctement, pas de résultat à afficher.</p>";
             toc("Displaying results");
         }
         worker.postMessage({action: 'exec', sql: commands});
