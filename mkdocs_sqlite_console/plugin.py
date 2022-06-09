@@ -119,13 +119,13 @@ class SQLiteConsole(BasePlugin):
         codemirror = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
         codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
         codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
-        out = out.replace("</head>",
-                          "<script src=\"{}\"></script>".format(codemirror)
+        out = out.replace("</title>",
+                          "</title>\n<script src=\"{}\"></script>".format(codemirror)
                           + "\n<script src=\"{}/js/sqlite_ide.js\"></script>\n".format(base_url)
                           + "\n<script src=\"{}\"></script>\n".format(codemirror_sql)
                           + "<link rel=\"stylesheet\" href=\"{}\">".format(codemirror_css)
                           + "<link rel=\"stylesheet\" href=\"{}/css/sqlite_ide.css\">".format(base_url)
-                          + "<script>path=\"{}\"</script>\n</head>".format(base_url))
+                          + "<script>path=\"{}\"</script>".format(base_url))
         return out
 
     def on_files(self, files, config):

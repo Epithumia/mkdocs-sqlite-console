@@ -29,3 +29,7 @@
 ### 1.0.4b
 
 - Petite modification d'un message pour clarifier que la requête n'e renvoie pas de résultat.
+
+### 1.0.4c
+
+- Modification de l'injection des scripts/CSS pour que le CSS puisse être customisé 
