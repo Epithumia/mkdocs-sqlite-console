@@ -636,7 +636,7 @@ Par exemple, ce site est configuré avec
 </code></pre></div></p>
 <p>On obtient l'affichage ci-dessous :</p>
 
-<div id="ide1"hide>
+<div id="ide1" >
 <label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -644,7 +644,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -658,7 +658,7 @@ SELECT COUNT(*) FROM employees;
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;IDE avec une base binaire chargée et code pré-saisi autoexécuté&quot; base=&quot;bases/test.db&quot; sql=&quot;sql/code.sql&quot; autoexec}}
 </code></pre></div>
 
-<div id="ide2"hide>
+<div id="ide2" >
 <label for='sqlcommands'>IDE avec une base binaire chargée et code pré-saisi autoexécuté</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -666,7 +666,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -681,7 +681,7 @@ SELECT COUNT(*) FROM employees;
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché&quot; base=&quot;bases/test.db&quot; sql=&quot;sql/code.sql&quot; autoexec hide}}
 </code></pre></div>
 
-<div id="ide3"hide>
+<div id="ide3" class="hidden">
 <label for='sqlcommands'>IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -689,7 +689,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -699,6 +699,10 @@ SELECT COUNT(*) FROM employees;
     load(ide, 'https:/epithumia.github.io/mkdocs-sqlite-console/bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
 }).catch(() => {});
 </script>
+<div class="admonition warning">
+<p class="admonition-title">Titre</p>
+<p>attention, le titre n'est plus affiché dans ce cas.</p>
+</div>
 <h4 id="base-partagee-entre-plusieurs-consoles">Base partagée entre plusieurs consoles</h4>
 <p>Il est possible de donner un argument supplémentaire pour partager une base entre plusieurs consoles/IDE :</p>
 <div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;IDE avec initialisation dans l&#39;espace bdd1&quot; init=&quot;sql/init1.sql&quot; espace=&quot;bdd1&quot; }}
@@ -706,11 +710,11 @@ SELECT COUNT(*) FROM employees;
 {{ sqlide titre=&quot;IDE sans initialisation, avec code pré-saisi, dans l&#39;espace bdd1&quot; sql=&quot;sql/code.sql&quot; espace=bdd1}}
 </code></pre></div>
 <script>var bdd1 = new Worker(path + "/js/worker.sql-wasm.js");</script>
-<div id="ide4"hide>
+<div id="ide4" >
 <label for='sqlcommands'>IDE avec initialisation dans l'espace bdd1</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands"></textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -722,7 +726,7 @@ SELECT COUNT(*) FROM employees;
 </script>
 
 
-<div id="ide5"hide>
+<div id="ide5" >
 <label for='sqlcommands'>IDE sans initialisation, avec code pré-saisi, dans l'espace bdd1</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -730,7 +734,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -749,7 +753,7 @@ SELECT COUNT(*) FROM employees;
 <div class="admonition sql">
 <p class="admonition-title">Bloc admonition avec initialisation et code pré-saisi</p>
 
-<div id="ide6"hide>
+<div id="ide6" >
 <label for='sqlcommands'>Init + Code</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -757,7 +761,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -775,7 +779,7 @@ donne</p>
 <details class="sql" open="open">
 <summary>Bloc accordéon avec initialisation et code pré-saisi</summary>
 
-<div id="ide7"hide>
+<div id="ide7" >
 <label for='sqlcommands'>Init + Code</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -783,7 +787,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -804,7 +808,7 @@ Il faut cliquer sur le champ de texte pour que l'IDE s'affiche (incorrectement).
 <details class="sql">
 <summary>Bloc admonition avec initialisation et code pré-saisi</summary>
 
-<div id="ide8"hide>
+<div id="ide8" >
 <label for='sqlcommands'>Init + Code</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -812,7 +816,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -833,7 +837,7 @@ chargée avec la syntaxe suivante :
 Par exemple <code>{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}</code>
 affichera :</p>
 
-<div id="ide9"hide>
+<div id="ide9" >
 <label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
@@ -841,7 +845,7 @@ FROM employees;
 
 SELECT COUNT(*) FROM employees;
 </textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -856,11 +860,11 @@ SELECT COUNT(*) FROM employees;
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
 </code></pre></div>
 
-<div id="ide10"hide>
+<div id="ide10" >
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">--Fichier de base 'bases/basem.db' introuvable</textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -873,11 +877,11 @@ SELECT COUNT(*) FROM employees;
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
 </code></pre></div>
 
-<div id="ide11"hide>
+<div id="ide11" >
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
+<button id="execute" class="sqlbutton execute hide">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>

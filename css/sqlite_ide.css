@@ -59,3 +59,10 @@
 .sqltable th, .sqltable td {
 	border:1px solid #777;
 }
+
+div.hidden > div.CodeMirror,
+div.hidden > label,
+div.hidden > br,
+div.hidden > button {
+	display: none;
+}
