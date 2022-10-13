@@ -80,7 +80,7 @@ Si l'on ne veut que le résultat de la requête sans pour autant afficher l'IDE,
 {{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché" base="bases/test.db" sql="sql/code.sql" autoexec hide}}
 
 !!! warning "Titre"
-    attention, le titre n'est plus affiché dans ce cas.
+    Attention, le titre n'est plus affiché dans ce cas.
 
 #### Base partagée entre plusieurs consoles
 
