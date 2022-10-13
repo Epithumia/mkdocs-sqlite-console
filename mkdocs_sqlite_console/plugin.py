@@ -15,7 +15,7 @@ JS_PATH = BASE_PATH + '/js/'
 
 SKELETON = """
 {workerinit}
-<div id="ide{numide}">
+<div id="ide{numide}"{hide}>
 <label for='sqlcommands'>{title}</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">{sqlcode}</textarea>
@@ -48,6 +48,7 @@ class Counter:
         params = str(macro.groups(0)[0])
         titre = ''.join(re.findall(regex_titre, params)) or "Sql"
         autoexec = True if 'autoexec' in params else ''
+        hide = ' style="display: none;"' if 'hide' in params else ''
         init = ''.join(re.findall(regex_init, params)) or ''
         base = ''.join(re.findall(regex_base, params)) or '/'
         sql = ''.join(re.findall(regex_sql, params)) or ''
@@ -93,7 +94,7 @@ class Counter:
                 sql = "--Fichier de base '" + base + "' introuvable"
                 init = ''
                 base = '/'
-        return SKELETON.format(numide=self.count, title=titre, base=base, sqlcode=sql, init=init, autoexec=autoexec, worker=worker, workerinit=workerinit)
+        return SKELETON.format(numide=self.count, title=titre, hide='hide', base=base, sqlcode=sql, init=init, autoexec=autoexec, worker=worker, workerinit=workerinit)
 
 
 # noinspection PyUnusedLocal

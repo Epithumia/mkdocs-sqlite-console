@@ -69,6 +69,17 @@ On peut aussi charger une base directement :
 
 {{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté" base="bases/test.db" sql="sql/code.sql" autoexec}}
 
+#### Cacher l'IDE
+
+Si l'on ne veut que le résultat de la requête sans pour autant afficher l'IDE, il suffit d'ajouter l'option *hide* :
+
+```markdown
+{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché" base="bases/test.db" sql="sql/code.sql" autoexec hide}}
+```
+
+{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché" base="bases/test.db" sql="sql/code.sql" autoexec hide}}
+
+
 #### Base partagée entre plusieurs consoles
 
 Il est possible de donner un argument supplémentaire pour partager une base entre plusieurs consoles/IDE :

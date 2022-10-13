@@ -33,3 +33,7 @@
 ### 1.0.4c
 
 - Modification de l'injection des scripts/CSS pour que le CSS puisse être customisé 
+
+## 1.0.5
+
+- Possibilité de cacher l'IDE pour ne garder que les résultats des requêtes
