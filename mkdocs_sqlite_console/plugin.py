@@ -19,7 +19,7 @@ SKELETON = """
 <label for='sqlcommands'>{title}</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">{sqlcode}</textarea>
-<button id="execute" class="sqlbutton execute hide">Exécuter</button>
+<button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
 </div>
@@ -48,7 +48,7 @@ class Counter:
         params = str(macro.groups(0)[0])
         titre = ''.join(re.findall(regex_titre, params)) or "Sql"
         autoexec = True if 'autoexec' in params else ''
-        hide = 'class="hidden"' if 'hide' in params else ''
+        hide = 'class="sqlhidden"' if 'hide' in params else ''
         init = ''.join(re.findall(regex_init, params)) or ''
         base = ''.join(re.findall(regex_base, params)) or '/'
         sql = ''.join(re.findall(regex_sql, params)) or ''

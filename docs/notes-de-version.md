@@ -37,3 +37,7 @@
 ## 1.0.5
 
 - Possibilité de cacher l'IDE pour ne garder que les résultats des requêtes
+
+### 1.0.5a
+
+- Correction d'un problème d'affichage si pyodide-mkdocs est utilisé.

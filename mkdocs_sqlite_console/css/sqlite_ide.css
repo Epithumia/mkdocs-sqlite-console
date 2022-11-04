@@ -60,9 +60,9 @@
 	border:1px solid #777;
 }
 
-div.hidden > div.CodeMirror,
-div.hidden > label,
-div.hidden > br,
-div.hidden > button {
+div.sqlhidden > div.CodeMirror,
+div.sqlhidden > label,
+div.sqlhidden > br,
+div.sqlhidden > button {
 	display: none;
 }
