@@ -105,7 +105,7 @@ class SQLiteConsole(BasePlugin):
 
     def on_page_content(self, html, page, config, files):
         import re
-        if 'macros' in config['plugins']:
+        if 'macros' in config['plugins'] or 'pyodide_macros' in config['plugins']:
             regex = r"(?:^|\n)\s*?<p>\s*?{!{\s*?sqlide.*?\s+?(.*?)\s*?}!}</p>(?:\n|$)"
         else:
             regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"

@@ -6,12 +6,12 @@
 
 ## 1.0.1
 
-- Correction de problèmes de chemins 
-- Documentation complétée
+- Correction de problèmes de chemins.
+- Documentation complétée.
 
 ### 1.0.1a
 
-- Inclusion des fichiers css/* et js/* dans l'installation.
+- Inclusion des fichiers css/\* et js/\* dans l'installation.
 
 ## 1.0.2
 
@@ -32,7 +32,7 @@
 
 ### 1.0.4c
 
-- Modification de l'injection des scripts/CSS pour que le CSS puisse être customisé 
+- Modification de l'injection des scripts/CSS pour que le CSS puisse être customisé.
 
 ## 1.0.5
 
@@ -41,3 +41,7 @@
 ### 1.0.5a
 
 - Correction d'un problème d'affichage si pyodide-mkdocs est utilisé.
+
+### 1.0.5b
+
+- Dirty Fix (merci F. Zinelli) pour rendre le plugin compatible avec [pyodide-mkdocs-theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/).
