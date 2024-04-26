@@ -2,5 +2,7 @@
 /site/
 /mkdocs_sqlite_console.egg-info/
 /venv/
+/build/
 
 .DS_Store
+.python-version
