@@ -8,7 +8,7 @@ seconds pourront exécuter et ainsi voir le résultat de leur requête.
 
 Installer le plugin avec pip :
 
-`pyhton3 -m pip install git+https://github.com/Epithumia/mkdocs-sqlite-console.git`
+`pyhton3 -m pip install mkdocs-sqlite-console`
 
 Pour accéder à la documentation :
 
@@ -20,14 +20,15 @@ mkdocs build
 ```
 
 Puis dans le dossier `docs`, activer le plugin dans votre fichier `mkdocs.yml`:
+
 ```yaml
 plugins:
   - search
   - sqlite-console
 ```
 
-> **Note:** Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration, 
-> vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas 
+> **Note:** Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration,
+> vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas
 > d'autres `plugins`, et dans le cas contraire, MkDocs demande de l'activer explicitement.
 
 Plus d'informations sur les plugins se trouvent dans la [documentation MkDocs][mkdocs-plugins].

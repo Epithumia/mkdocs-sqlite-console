@@ -45,3 +45,7 @@
 ### 1.0.5b
 
 - Dirty Fix (merci F. Zinelli) pour rendre le plugin compatible avec [pyodide-mkdocs-theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/).
+
+### 1.0.6
+
+- Publié sur PyPi

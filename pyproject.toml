@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mkdocs-sqlite-console"
+authors = [
+    { name = "Rafael Lopez", email = "rafael.lopez@universite-paris-saclay.fr" },
+]
+description = "Mkdocs-SQLite-Console est un plugin pour MkDocs, qui permet d'afficher un IDE SQL (SQLite) permettant d'exécuter du code."
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["mkdocs", "sql", "sqlite"]
+license = { text = "MIT" }
+classifiers = [
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+]
+dependencies = ["mkdocs>=1.0.4"]
+dynamic = ["version"]
+
+[project.urls]
+documentation = "https://epithumia.github.io/mkdocs-sqlite-console/"
+source = "https://github.com/Epithumia/mkdocs-sqlite-console"
+
+[tool.setuptools]
+packages = ["mkdocs_sqlite_console"]
+
+[tool.setuptools.dynamic]
+version = { attr = "mkdocs_sqlite_console.VERSION" }
+
+[project.entry-points."mkdocs.plugins"]
+sqlite-console = "mkdocs_sqlite_console:SQLiteConsole"
