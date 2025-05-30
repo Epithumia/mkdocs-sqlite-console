@@ -8,14 +8,14 @@ seconds pourront exécuter et ainsi voir le résultat de leur requête.
 
 Installer le plugin avec pip :
 
-`pyhton3 -m pip install mkdocs-sqlite-console`
+`python3 -m pip install mkdocs-sqlite-console`
 
 Pour accéder à la documentation :
 
 ```shell
 git clone git+https://github.com/Epithumia/mkdocs-sqlite-console.git
 cd mkdocs-sqlite-console
-pyhton3 -m pip install .[docs]
+python3 -m pip install .[docs]
 mkdocs build
 ```
 

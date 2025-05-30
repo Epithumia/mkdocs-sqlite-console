@@ -49,3 +49,8 @@
 ### 1.0.6
 
 - Publié sur PyPi
+
+### 1.0.7
+
+- Correction d'un oubli dans pyproject.toml (dépendance manquante pour faire la documentation locale)
+- Correction de typos.

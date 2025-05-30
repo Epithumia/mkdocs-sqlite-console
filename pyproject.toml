@@ -28,6 +28,9 @@ classifiers = [
 dependencies = ["mkdocs>=1.0.4"]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+docs = ["mkdocs>=1.0.4", "mkdocs-material>=6.0.0"]
+
 [project.urls]
 documentation = "https://epithumia.github.io/mkdocs-sqlite-console/"
 source = "https://github.com/Epithumia/mkdocs-sqlite-console"
