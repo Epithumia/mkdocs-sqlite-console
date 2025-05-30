@@ -3,7 +3,7 @@
 /mkdocs_sqlite_console.egg-info/
 /venv/
 /build/
-
+**/.vscode
 **/__pycache__/
 
 .DS_Store

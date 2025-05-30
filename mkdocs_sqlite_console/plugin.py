@@ -1,9 +1,12 @@
 import os
 import re
+from typing import Optional
 
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import File
+from mkdocs.structure.pages import Page
+
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -38,21 +41,39 @@ class Counter:
         self.config = config
         self.spaces = {}
 
+
     def insert_ide(self, macro):
-        self.count += 1
         regex_titre = r".*?titre=\"(.*?)\""
         regex_init = r".*?init=[\"\']?\b([^\s]*)\b"
         regex_base = r".*?base=[\"\']?\b([^\s]*)\b"
         regex_sql = r".*?sql=[\"\']?\b([^\s]*)\b"
         regex_space = r".*?espace=[\"\']?\b([^\s]*)\b"
+
         params = str(macro.groups(0)[0])
-        titre = ''.join(re.findall(regex_titre, params)) or "Sql"
-        autoexec = True if 'autoexec' in params else ''
-        hide = 'class="sqlhidden"' if 'hide' in params else ''
-        init = ''.join(re.findall(regex_init, params)) or ''
-        base = ''.join(re.findall(regex_base, params)) or '/'
-        sql = ''.join(re.findall(regex_sql, params)) or ''
-        space = ''.join(re.findall(regex_space, params)) or None
+
+        titre = ''.join(re.findall(regex_titre, params))
+        autoexec = 'autoexec' in params
+        hide = 'hide' in params
+        init = ''.join(re.findall(regex_init, params))
+        base = ''.join(re.findall(regex_base, params))
+        sql = ''.join(re.findall(regex_sql, params))
+        space = ''.join(re.findall(regex_space, params))
+
+        return self.build_sql(titre, autoexec, hide, init, base, sql, space)
+
+
+    def build_sql(self, titre, autoexec, hide, init, base, sql, space):
+        self.count += 1
+
+        # handle defaults (centralizing the logic in one single place):
+        autoexec = True if autoexec else ''
+        hide = 'class="sqlhidden"' if hide else ''
+        titre = titre or "Sql"
+        init = init or ''
+        base = base or '/'
+        sql = sql or ''
+        space = space or None
+
         worker = ''
         workerinit = ''
         if space:
@@ -103,31 +124,33 @@ class SQLiteConsole(BasePlugin):
     def __init__(self, **kwargs):
         super().__init__()
 
-    def on_page_content(self, html, page, config, files):
-        import re
-        if 'macros' in config['plugins'] or 'pyodide_macros' in config['plugins']:
-            regex = r"(?:^|\n)\s*?<p>\s*?{!{\s*?sqlide.*?\s+?(.*?)\s*?}!}</p>(?:\n|$)"
-        else:
-            regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
+        self.has_instant_nav = False
+        """ Is theme.features.navigation.instant option active or not? """
 
-        c = Counter(config)
-        html = re.sub(regex, c.insert_ide, html, flags=re.MULTILINE | re.DOTALL)
+        self.macros = None
+        """ PMT:pyodide_macros or mkdocs-macros-plugin:macros or None """
 
-        return html
+        self.ressources = {}        # dict[page_url,Counter]
+        """ Tracking pages vs counters, to spot where the additional files need to be included """
 
-    def on_post_page(self, out, page, config, **kwargs):
-        base_url = config['site_url']
-        codemirror = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
-        codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
-        codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
-        out = out.replace("</title>",
-                          "</title>\n<script src=\"{}\"></script>".format(codemirror)
-                          + "\n<script src=\"{}/js/sqlite_ide.js\"></script>\n".format(base_url)
-                          + "\n<script src=\"{}\"></script>\n".format(codemirror_sql)
-                          + "<link rel=\"stylesheet\" href=\"{}\">".format(codemirror_css)
-                          + "<link rel=\"stylesheet\" href=\"{}/css/sqlite_ide.css\">".format(base_url)
-                          + "<script>path=\"{}\"</script>".format(base_url))
-        return out
+
+    def on_config(self, config, **kwargs):
+        if 'site_url' not in config.keys() or config['site_url'] == '':
+            raise PluginError("Le fichier de configuration doit comporter une valeur pour la clef 'site_url'")
+
+        self.has_instant_nav ='navigation.instant' in config["theme"]["features"]
+
+        plugins = config['plugins']
+        if 'pyodide_macros' in plugins or 'macros' in plugins:
+
+            # Register the PMT/macros plugin
+            self.macros = plugins.get('pyodide_macros') or plugins['macros']
+
+            # Register as macro, to use as: `{{ sqlide(titre=..., ...) }}`
+            self.macros.macro(self.sqlide)      # The name of the method defines the macro name
+
+        return config
+
 
     def on_files(self, files, config):
         files.append(File('sqlite_ide.css', CSS_PATH,
@@ -138,11 +161,76 @@ class SQLiteConsole(BasePlugin):
                           config['site_dir'] + '/js/', False))
         files.append(File('sql-wasm.wasm', JS_PATH,
                           config['site_dir'] + '/js/', False))
-
         return files
 
-    def on_config(self, config, **kwargs):
-        if 'site_url' not in config.keys() or config['site_url'] == '':
-            raise PluginError("Le fichier de configuration doit comporter une valeur pour la clef 'site_url'")
 
-        return config
+
+    def on_pre_page(self, page, config, files):
+        self.counter_for(page, set_counter=Counter(config))
+
+
+    def on_page_content(self, html, page, config, files):
+        # NOTE: regex are working on the interpreted markdown, so searching for `<p>...</p>` to
+        #       not match calls that are in code blocks, in the documentation.
+
+        if self.macros:
+            # Still apply the "old way", for backward compatibility.
+            # If used as an actual macro, this won't find anything to update in the page.
+            regex = r"(?:^|\n)\s*?<p>\s*?{!{\s*?sqlide.*?\s+?(.*?)\s*?}!}</p>(?:\n|$)"
+        else:
+            regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
+
+        c = self.counter_for(page)
+        if c:
+            html = re.sub(regex, c.insert_ide, html, flags=re.MULTILINE | re.DOTALL)
+
+        return html
+
+
+    def on_post_page(self, out: str, page: Page, config, **kwargs):
+
+        c = self.counter_for(page)
+
+        # When using navigation.instant, the scripts are loaded once only and have to always
+        # be included in every page (because one doesn't know where the user will land first)
+        if not self.has_instant_nav and (not c or not c.count):
+            return out      # No ressources needed for this page (without navigation.instant)
+
+        base_url = config['site_url']
+        codemirror = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
+        codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
+        codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
+
+        out = out.replace("</title>", f"""</title>
+<script src="{ codemirror }"></script>
+<script src="{ base_url }/js/sqlite_ide.js"></script>
+<script src="{ codemirror_sql }"></script>
+<link rel="stylesheet" href="{ codemirror_css }">
+<link rel="stylesheet" href="{ base_url }/css/sqlite_ide.css">
+<script>path="{ base_url }"</script>
+""")
+        return out
+
+
+
+    def counter_for(self, page, *, set_counter:Counter=None) -> Optional[Counter]:
+        key = page and page.url
+        if set_counter is not None:
+            self.ressources[key] = set_counter
+        else:
+            return self.ressources.get(key)
+
+
+    def sqlide(
+        self,
+        titre = None,
+        autoexec = None,
+        hide = None,
+        init = None,
+        base = None,
+        sql = None,
+        space = None,
+    ):
+        # (actual default values are handled in Counter.build_sql)
+        c = self.counter_for(self.macros.page)
+        c.build_sql(titre, autoexec, hide, init, base, sql, space)
