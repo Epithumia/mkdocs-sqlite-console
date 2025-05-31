@@ -22,6 +22,7 @@ edit_uri: edit/main/docs/
 
 plugins:
   - search
+  # - macros          # pour tester en local. A déclarer avant sqlite-console.
   - sqlite-console
 
 markdown_extensions:
