@@ -141,13 +141,7 @@ class SQLiteConsole(BasePlugin):
         self.has_instant_nav ='navigation.instant' in config["theme"]["features"]
 
         plugins = config['plugins']
-        if 'pyodide_macros' in plugins or 'macros' in plugins:
-
-            # Register the PMT/macros plugin
-            self.macros = plugins.get('pyodide_macros') or plugins['macros']
-
-            # Register as macro, to use as: `{{ sqlide(titre=..., ...) }}`
-            self.macros.macro(self.sqlide)      # The name of the method defines the macro name
+        self.macros = plugins.get('pyodide_macros') or plugins.get('macros')
 
         return config
 
@@ -231,6 +225,10 @@ class SQLiteConsole(BasePlugin):
         sql = None,
         space = None,
     ):
+        """
+        Can be registered as a mkdocs macro (through the macro module, or automatically
+        when using PMT).
+        """
         # (actual default values are handled in Counter.build_sql)
         c = self.counter_for(self.macros.page)
-        c.build_sql(titre, autoexec, hide, init, base, sql, space)
+        return c.build_sql(titre, autoexec, hide, init, base, sql, space)
