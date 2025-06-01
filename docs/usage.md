@@ -9,10 +9,31 @@ plugins:
   - sqlite-console
 ```
 
-!!! note 
-    Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration, 
-    vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas 
+!!! note
+    Si vous n'avez aucune entrée dans la section `plugins` de votre fichier de configuration,
+    vous voudrez sans doute ajouter le plugin `search`. MkDocs l'active par défaut s'il n'y a pas
     d'autres `plugins`, et dans le cas contraire, MkDocs demande de l'activer explicitement.
+
+!!! note "Utilisation avec `mkdocs-macros-plugin` ou Pyodide-MkDocs-Theme"
+
+    Noter que le plugin `mkdocs-sqlite-console` doit toujours être référencé après les plugins de PMT ou des macros, dans le fichier `mkdocs.yml` :
+
+    ```yaml
+    plugins:
+        - search
+        - macros            # avec mkdocs-macros-plugin
+        - sqlite-console
+    ```
+
+    ```yaml
+    plugins:
+        - search
+        - pyodide_macros    # avec PMT
+        - sqlite-console
+    ```
+
+
+
 
 Si vous voulez déployer votre site (à l'aide de `mkdocs build` ou `mkdocs gh-deploy`), il faut également ajouter à votre
 fichier `mkdocs.yml` une ligne du type
@@ -25,7 +46,7 @@ site_url: https://epithumia.github.io/mkdocs-sqlite-console
 ```
 
 !!! error "site_url"
-    Si vous n'avez pas défini la variable `site_url` dans votre fichier `mkdocs.yml`, les commandes 
+    Si vous n'avez pas défini la variable `site_url` dans votre fichier `mkdocs.yml`, les commandes
     `mkdocs build` et `mkdocs gh-deploy` ne fonctionneront pas et signaleront la nécessité de le faire.
 
 ## Afficher la console/IDE
@@ -46,7 +67,9 @@ On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramè
     - le titre *doit* être entre guillemets
     - les chemins vers les fichiers sont relatifs à la racine du site
     - les chemins ne peuvent pas contenir d'espace
-    - les options base et init sont mutuellement exclusives ; l'option base est prioritaire. 
+    - les options base et init sont mutuellement exclusives ; l'option base est prioritaire.
+
+    Voir le cas des [utilisations en tant que macro](#as-macros), où les syntaxes diffèrent légèrement.
 
 ### Quelques exemples
 
@@ -77,7 +100,7 @@ Si l'on ne veut que le résultat de la requête sans pour autant afficher l'IDE,
 {{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché" base="bases/test.db" sql="sql/code.sql" autoexec hide}}
 ```
 
-{{sqlide titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché" base="bases/test.db" sql="sql/code.sql" autoexec hide}}
+{{sqlide(titre="IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché" base="bases/test.db" sql="sql/code.sql" autoexec hide)}}
 
 !!! warning "Titre"
     Attention, le titre n'est plus affiché dans ce cas.
@@ -130,20 +153,84 @@ donne
     ??? sql "Bloc admonition avec initialisation et code pré-saisi"
         {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 
-### Usage avec le plugin [macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/)
 
-Le plugin macros utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de 
-fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
-chargée avec la syntaxe suivante :
+
+
+## Usage avec le plugin [macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/) ou [Pyodide-MkDocs-Theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/) { #as-macros }
+
+
+`mkdocs-sqlite-console` est compatible avec l'utilisation du plugin `mkdocs-macros`, ainsi que le thème Pyodide-MkDocs-Theme.
+
+Si l'un des deux est utilisé (avec une manipulation de configuration à faire pour le plugin des macros seul), il est alors possible de déclarer un `sqlide` via un appel de macro :
+
 ```markdown
-{!{ sqlide paramètres }!}
+{{ sqlide(titre="Init + Code", init="sql/init1.sql", sql="sql/code.sql") }}
 ```
-Par exemple `{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}`
-affichera :
 
-{{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }}
+### Syntaxes
 
-### Erreurs
+Par rapport à l'utilisation normale du plugin, il faut :
+
+* Ajouter les parenthèses autour des arguments,
+* Ajouter des virgules entre les arguments,
+* Les guillemets autour des valeurs des arguments sont alors indispensables.
+
+
+
+??? tip "Anciennes syntaxes - versions 1.0.7 et antérieures"
+
+    _Ceci décrit les anciens comportements pour utiliser `mkdocs-sqlite-console` avec le plugin des macros ou PMT activés.
+    Ces méthodes restent utilisables._
+    { style="color:#FFAA00" }
+
+    Le plugin `macros` utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de
+    fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
+    chargée avec la syntaxe suivante :
+
+    ```markdown
+    {!{ sqlide paramètres }!}
+    ```
+
+    Par exemple, l'appel :
+
+    ```markdown
+    {{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }}
+    ```
+
+    ...devait alors s'écrire :
+
+    `{!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }!}`
+
+
+
+### Activation
+
+#### Pyodide-MkDocs-Theme
+
+Le thème gère tout automatiquement, à partir de sa version 4.4.5.
+
+Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des `sqlide`.
+
+
+#### `mkdocs-macros-plugin`
+
+Dans le cas d'utilisation du plugin des macros seul, il est nécessaire d'enregistrer la macro depuis votre fichier/module de macros personnalisées.
+Par défaut, il s'agit du fichier `main.py` :
+
+```python
+
+def define_env(env):
+
+    # Vos macros personnalisées ici:
+    ...
+
+    # Enregistrement de la macro sqlide:
+    sql_plugin = env._conf.plugins['sqlite-console']
+    env.macro(sql_plugin.sqlide)
+```
+
+
+## Erreurs
 
 Le plugin détectera les fichiers non existants :
 

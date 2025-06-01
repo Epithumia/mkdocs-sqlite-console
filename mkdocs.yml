@@ -11,8 +11,8 @@ theme:
 
 nav:
     - Home: 'index.md'
-    - 'Guide d''utilisation': 'usage.md'
-    - A propos:
+    - Guide d'utilisation: 'usage.md'
+    - À propos:
         - 'License': 'licence.md'
         - 'Historique des versions': 'notes-de-version.md'
 
@@ -22,10 +22,11 @@ edit_uri: edit/main/docs/
 
 plugins:
   - search
-  # - macros          # pour tester en local. A déclarer avant sqlite-console.
+  # - macros          # Activer pour tester en local (Nota: à placer avant sqlite-console)
   - sqlite-console
 
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - attr_list
