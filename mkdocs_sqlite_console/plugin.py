@@ -181,29 +181,28 @@ class SQLiteConsole(BasePlugin):
         return html
 
 
-    def on_post_page(self, out: str, page: Page, config, **kwargs):
+    def on_page_context(self, ctx, page: Page, config, **kwargs):
 
         c = self.counter_for(page)
 
         # When using navigation.instant, the scripts are loaded once only and have to always
         # be included in every page (because one doesn't know where the user will land first)
-        if not self.has_instant_nav and (not c or not c.count):
-            return out      # No ressources needed for this page (without navigation.instant)
+        if self.has_instant_nav or c and c.count:
 
-        base_url = config['site_url']
-        codemirror = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
-        codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
-        codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
+            base_url = config['site_url']
+            codemirror     = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"
+            codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
+            codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
 
-        out = out.replace("</title>", f"""</title>
+            sql_scripts = f"""\
 <script src="{ codemirror }"></script>
 <script src="{ base_url }/js/sqlite_ide.js"></script>
 <script src="{ codemirror_sql }"></script>
 <link rel="stylesheet" href="{ codemirror_css }">
 <link rel="stylesheet" href="{ base_url }/css/sqlite_ide.css">
 <script>path="{ base_url }"</script>
-""")
-        return out
+"""
+            page.content = sql_scripts + page.content
 
 
 
