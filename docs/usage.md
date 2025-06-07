@@ -3,6 +3,7 @@
 ## Activer le plugin
 
 Ajouter dans votre fichier `mkdocs.yml`:
+
 ```yaml
 plugins:
   - search
@@ -16,7 +17,7 @@ plugins:
 
 !!! note "Utilisation avec `mkdocs-macros-plugin` ou Pyodide-MkDocs-Theme"
 
-    Noter que le plugin `mkdocs-sqlite-console` doit toujours être référencé après les plugins de PMT ou des macros, dans le fichier `mkdocs.yml` :
+    Noter que le plugin `mkdocs-sqlite-console` doit toujours être référencé après les plugins de PMT ou des macros, dans le fichier `mkdocs.yml` :<!-- markdownlint-disable-line MD046 -->
 
     ```yaml
     plugins:
@@ -32,15 +33,15 @@ plugins:
         - sqlite-console
     ```
 
-
-
-
 Si vous voulez déployer votre site (à l'aide de `mkdocs build` ou `mkdocs gh-deploy`), il faut également ajouter à votre
 fichier `mkdocs.yml` une ligne du type
+
 ```yaml
 site_url: https://monsite.url/chemin
 ```
+
 Par exemple, ce site est configuré avec
+
 ```yaml
 site_url: https://epithumia.github.io/mkdocs-sqlite-console
 ```
@@ -69,13 +70,14 @@ On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramè
     - les chemins ne peuvent pas contenir d'espace
     - les options base et init sont mutuellement exclusives ; l'option base est prioritaire.
 
-    Voir le cas des [utilisations en tant que macro](#as-macros), où les syntaxes diffèrent légèrement.
+    Voir le cas des [utilisations en tant que macro](#as-macros), où les syntaxes diffèrent légèrement.<!-- markdownlint-disable-line MD046 -->
 
 ### Quelques exemples
 
 #### Affichage basique
 
 Pour afficher un IDE avec du code SQL d'initialisation et du code pré-saisi :
+
 ```markdown
 {{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }}
 ```
@@ -137,11 +139,11 @@ donne :
 ???+ sql "Bloc accordéon avec initialisation et code pré-saisi"
     {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 ```
-donne
+
+donne :
 
 ???+ sql "Bloc accordéon avec initialisation et code pré-saisi"
     {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
-
 
 !!! bug
     Les blocs ne s'affichent pas correctement dans les admonitions qui sont repliées par défaut :
@@ -153,11 +155,7 @@ donne
     ??? sql "Bloc admonition avec initialisation et code pré-saisi"
         {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 
-
-
-
 ## Usage avec le plugin [macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/) ou [Pyodide-MkDocs-Theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/) { #as-macros }
-
 
 `mkdocs-sqlite-console` est compatible avec l'utilisation du plugin `mkdocs-macros`, ainsi que le thème Pyodide-MkDocs-Theme.
 
@@ -171,15 +169,13 @@ Si l'un des deux est utilisé (avec une manipulation de configuration à faire p
 
 Par rapport à l'utilisation normale du plugin, il faut :
 
-* Ajouter les parenthèses autour des arguments,
-* Ajouter des virgules entre les arguments,
-* Les guillemets autour des valeurs des arguments sont alors indispensables.
-
-
+- Ajouter les parenthèses autour des arguments,
+- Ajouter des virgules entre les arguments,
+- Les guillemets autour des valeurs des arguments sont alors indispensables.
 
 ??? tip "Anciennes syntaxes - versions 1.0.7 et antérieures"
 
-    _Ceci décrit les anciens comportements pour utiliser `mkdocs-sqlite-console` avec le plugin des macros ou PMT activés.
+    _Ceci décrit les anciens comportements pour utiliser `mkdocs-sqlite-console` avec le plugin des macros ou PMT activés.<!-- markdownlint-disable-line MD046 -->
     Ces méthodes restent utilisables._
     { style="color:#FFAA00" }
 
@@ -201,16 +197,13 @@ Par rapport à l'utilisation normale du plugin, il faut :
 
     `{!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }!}`
 
-
-
 ### Activation
 
 #### Pyodide-MkDocs-Theme
 
-Le thème gère tout automatiquement, à partir de sa version 4.4.5.
+Le thème gère tout automatiquement, à partir de sa version 4.4.6.
 
 Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des `sqlide`.
-
 
 #### `mkdocs-macros-plugin`
 
@@ -228,7 +221,6 @@ def define_env(env):
     sql_plugin = env._conf.plugins['sqlite-console']
     env.macro(sql_plugin.sqlide)
 ```
-
 
 ## Erreurs
 
