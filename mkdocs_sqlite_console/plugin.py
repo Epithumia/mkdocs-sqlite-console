@@ -79,7 +79,7 @@ class Counter:
         if space:
             if space not in self.spaces:
                 self.spaces[space] = 0
-                workerinit = '<script>var {worker} = new Worker(path + "/js/worker.sql-wasm.js");</script>'.format(worker=space)
+                workerinit = '<script>var {worker} = new Worker(base_path + "/js/worker.sql-wasm.js");</script>'.format(worker=space)
                 worker = space
             else:
                 self.spaces[space] += 1
@@ -200,7 +200,7 @@ class SQLiteConsole(BasePlugin):
 <script src="{ codemirror_sql }"></script>
 <link rel="stylesheet" href="{ codemirror_css }">
 <link rel="stylesheet" href="{ base_url }/css/sqlite_ide.css">
-<script>path="{ base_url }"</script>
+<script>base_path="{ base_url }"</script>
 """
             page.content = sql_scripts + page.content
 

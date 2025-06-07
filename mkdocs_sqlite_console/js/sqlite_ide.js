@@ -10,7 +10,7 @@ function load(ide, base = '', init = '', run='', espace='') {
     var worker = espace;
     var neww;
     if (espace === '') {
-        worker = new Worker(path + "/js/worker.sql-wasm.js");
+        worker = new Worker(base_path + "/js/worker.sql-wasm.js");
         worker.onerror = error;
         neww = true;
     } else {
