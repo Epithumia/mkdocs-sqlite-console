@@ -104,7 +104,7 @@ class Counter:
                     init = init.replace('\n', '\\n')
                     init = init.replace('\'', '\\\'')
             except OSError:
-                sql = "--Fichier d'initialisation '" + init + "' introuvable"
+                sql = "-- Fichier d'initialisation '" + init + "' introuvable"
                 init = ''
         if base != '/':
             base_url = self.config['site_url']
@@ -112,7 +112,7 @@ class Counter:
                 base = base_url + '/' + base
                 base = base.replace('//', '/')
             else:
-                sql = "--Fichier de base '" + base + "' introuvable"
+                sql = "-- Fichier de base '" + base + "' introuvable"
                 init = ''
                 base = '/'
         return SKELETON.format(numide=self.count, title=titre, hide=hide, base=base, sqlcode=sql, init=init, autoexec=autoexec, worker=worker, workerinit=workerinit)
