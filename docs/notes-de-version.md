@@ -54,3 +54,7 @@
 
 - Correction d'un oubli dans pyproject.toml (dépendance manquante pour faire la documentation locale)
 - Correction de typos.
+
+### 2.0.0
+
+- Support pour utilisation en tant que macro {{ sqlide(...) }}
