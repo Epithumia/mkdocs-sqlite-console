@@ -23,11 +23,6 @@
     
       
         <title>Guide d'utilisation - mkdocs-sqlite-console</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"></script>
-<script src="https://epithumia.github.io/mkdocs-sqlite-console//js/sqlite_ide.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"><link rel="stylesheet" href="https://epithumia.github.io/mkdocs-sqlite-console//css/sqlite_ide.css"><script>path="https://epithumia.github.io/mkdocs-sqlite-console/"</script>
       
     
     
@@ -230,7 +225,7 @@
           
   
   
-  A propos
+  À propos
 
         </a>
       </li>
@@ -437,19 +432,53 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#usage-avec-le-plugin-macros" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#as-macros" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage avec le plugin macros
+      Usage avec le plugin macros ou Pyodide-MkDocs-Theme
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage avec le plugin macros ou Pyodide-MkDocs-Theme">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntaxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntaxes
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#erreurs" class="md-nav__link">
+  <a href="#activation" class="md-nav__link">
     <span class="md-ellipsis">
-      Erreurs
+      Activation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyodide-mkdocs-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pyodide-MkDocs-Theme
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-macros-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      mkdocs-macros-plugin
     </span>
   </a>
   
@@ -457,6 +486,20 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erreurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erreurs
+    </span>
+  </a>
   
 </li>
       
@@ -494,7 +537,7 @@
   
   
   <span class="md-ellipsis">
-    A propos
+    À propos
     
   </span>
   
@@ -505,7 +548,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            A propos
+            À propos
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -658,19 +701,53 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#usage-avec-le-plugin-macros" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#as-macros" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage avec le plugin macros
+      Usage avec le plugin macros ou Pyodide-MkDocs-Theme
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage avec le plugin macros ou Pyodide-MkDocs-Theme">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntaxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntaxes
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#erreurs" class="md-nav__link">
+  <a href="#activation" class="md-nav__link">
     <span class="md-ellipsis">
-      Erreurs
+      Activation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyodide-mkdocs-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pyodide-MkDocs-Theme
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-macros-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      mkdocs-macros-plugin
     </span>
   </a>
   
@@ -678,6 +755,20 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erreurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erreurs
+    </span>
+  </a>
   
 </li>
       
@@ -700,29 +791,49 @@
   
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"></script>
+<script src="https://epithumia.github.io/mkdocs-sqlite-console//js/sqlite_ide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css">
+<link rel="stylesheet" href="https://epithumia.github.io/mkdocs-sqlite-console//css/sqlite_ide.css">
+<script>sqljs_base_path="https://epithumia.github.io/mkdocs-sqlite-console/"</script>
 <h1 id="utilisation">Utilisation</h1>
 <h2 id="activer-le-plugin">Activer le plugin</h2>
-<p>Ajouter dans votre fichier <code>mkdocs.yml</code>:
+<p>Ajouter dans votre fichier <code>mkdocs.yml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sqlite-console</span>
-</code></pre></div></p>
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Si vous n'avez aucune entrée dans la section <code>plugins</code> de votre fichier de configuration, 
-vous voudrez sans doute ajouter le plugin <code>search</code>. MkDocs l'active par défaut s'il n'y a pas 
+<p>Si vous n'avez aucune entrée dans la section <code>plugins</code> de votre fichier de configuration,
+vous voudrez sans doute ajouter le plugin <code>search</code>. MkDocs l'active par défaut s'il n'y a pas
 d'autres <code>plugins</code>, et dans le cas contraire, MkDocs demande de l'activer explicitement.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Utilisation avec <code>mkdocs-macros-plugin</code> ou Pyodide-MkDocs-Theme</p>
+<p>Noter que le plugin <code>mkdocs-sqlite-console</code> doit toujours être référencé après les plugins de PMT ou des macros, dans le fichier <code>mkdocs.yml</code> :<!-- markdownlint-disable-line MD046 --></p>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">macros</span><span class="w">            </span><span class="c1"># avec mkdocs-macros-plugin</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sqlite-console</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyodide_macros</span><span class="w">    </span><span class="c1"># avec PMT</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sqlite-console</span>
+</code></pre></div>
+</div>
 <p>Si vous voulez déployer votre site (à l'aide de <code>mkdocs build</code> ou <code>mkdocs gh-deploy</code>), il faut également ajouter à votre
-fichier <code>mkdocs.yml</code> une ligne du type
+fichier <code>mkdocs.yml</code> une ligne du type</p>
 <div class="highlight"><pre><span></span><code><span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://monsite.url/chemin</span>
 </code></pre></div>
-Par exemple, ce site est configuré avec
+<p>Par exemple, ce site est configuré avec</p>
 <div class="highlight"><pre><span></span><code><span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://epithumia.github.io/mkdocs-sqlite-console</span>
-</code></pre></div></p>
+</code></pre></div>
 <div class="admonition error">
 <p class="admonition-title">site_url</p>
-<p>Si vous n'avez pas défini la variable <code>site_url</code> dans votre fichier <code>mkdocs.yml</code>, les commandes 
+<p>Si vous n'avez pas défini la variable <code>site_url</code> dans votre fichier <code>mkdocs.yml</code>, les commandes
 <code>mkdocs build</code> et <code>mkdocs gh-deploy</code> ne fonctionneront pas et signaleront la nécessité de le faire.</p>
 </div>
 <h2 id="afficher-la-consoleide">Afficher la console/IDE</h2>
@@ -745,14 +856,15 @@ Par exemple, ce site est configuré avec
 <li>le titre <em>doit</em> être entre guillemets</li>
 <li>les chemins vers les fichiers sont relatifs à la racine du site</li>
 <li>les chemins ne peuvent pas contenir d'espace</li>
-<li>les options base et init sont mutuellement exclusives ; l'option base est prioritaire. </li>
+<li>les options base et init sont mutuellement exclusives ; l'option base est prioritaire.</li>
 </ul>
+<p>Voir le cas des <a href="#as-macros">utilisations en tant que macro</a>, où les syntaxes diffèrent légèrement.<!-- markdownlint-disable-line MD046 --></p>
 </div>
 <h3 id="quelques-exemples">Quelques exemples</h3>
 <h4 id="affichage-basique">Affichage basique</h4>
-<p>Pour afficher un IDE avec du code SQL d'initialisation et du code pré-saisi :
+<p>Pour afficher un IDE avec du code SQL d'initialisation et du code pré-saisi :</p>
 <div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;IDE avec initialisation et code pré-saisi&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
-</code></pre></div></p>
+</code></pre></div>
 <p>On obtient l'affichage ci-dessous :</p>
 
 <div id="ide1" >
@@ -801,7 +913,7 @@ SELECT COUNT(*) FROM employees;
 </code></pre></div>
 
 <div id="ide3" class="sqlhidden">
-<label for='sqlcommands'>IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché</label>
+<label for='sqlcommands'>Sql</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">SELECT *
 FROM employees;
@@ -828,7 +940,7 @@ SELECT COUNT(*) FROM employees;
 
 {{ sqlide titre=&quot;IDE sans initialisation, avec code pré-saisi, dans l&#39;espace bdd1&quot; sql=&quot;sql/code.sql&quot; espace=bdd1}}
 </code></pre></div>
-<script>var bdd1 = new Worker(path + "/js/worker.sql-wasm.js");</script>
+<script>var bdd1 = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");</script>
 <div id="ide4" >
 <label for='sqlcommands'>IDE avec initialisation dans l'espace bdd1</label>
 <br>
@@ -891,10 +1003,10 @@ SELECT COUNT(*) FROM employees;
 }).catch(() => {});
 </script>
 </div>
-<p><div class="highlight"><pre><span></span><code>???+ sql &quot;Bloc accordéon avec initialisation et code pré-saisi&quot;
+<div class="highlight"><pre><span></span><code>???+ sql &quot;Bloc accordéon avec initialisation et code pré-saisi&quot;
     {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
 </code></pre></div>
-donne</p>
+<p>donne :</p>
 <details class="sql" open="open">
 <summary>Bloc accordéon avec initialisation et code pré-saisi</summary>
 
@@ -947,23 +1059,58 @@ SELECT COUNT(*) FROM employees;
 </script>
 </details>
 </div>
-<h3 id="usage-avec-le-plugin-macros">Usage avec le plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">macros</a></h3>
-<p>Le plugin macros utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de 
+<h2 id="as-macros">Usage avec le plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">macros</a> ou <a href="https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/">Pyodide-MkDocs-Theme</a></h2>
+<p><code>mkdocs-sqlite-console</code> est compatible avec l'utilisation du plugin <code>mkdocs-macros</code>, ainsi que le thème Pyodide-MkDocs-Theme.</p>
+<p>Si l'un des deux est utilisé (avec une manipulation de configuration à faire pour le plugin des macros seul), il est alors possible de déclarer un <code>sqlide</code> via un appel de macro :</p>
+<div class="highlight"><pre><span></span><code>{{ sqlide(titre=&quot;Init + Code&quot;, init=&quot;sql/init1.sql&quot;, sql=&quot;sql/code.sql&quot;) }}
+</code></pre></div>
+<h3 id="syntaxes">Syntaxes</h3>
+<p>Par rapport à l'utilisation normale du plugin, il faut :</p>
+<ul>
+<li>Ajouter les parenthèses autour des arguments,</li>
+<li>Ajouter des virgules entre les arguments,</li>
+<li>Les guillemets autour des valeurs des arguments sont alors indispensables.</li>
+</ul>
+<details class="tip">
+<summary>Anciennes syntaxes - versions 1.0.7 et antérieures</summary>
+<p style="color:#FFAA00"><em>Ceci décrit les anciens comportements pour utiliser <code>mkdocs-sqlite-console</code> avec le plugin des macros ou PMT activés.<!-- markdownlint-disable-line MD046 -->
+Ces méthodes restent utilisables.</em></p>
+<p>Le plugin <code>macros</code> utilise les doubles accolades pour définir ses propres blocs de code, ce qui empêche ce plugin de
 fonctionner normalement. En conséquence, quand le plugin macros est détecté, la syntaxe change et l'IDE SQLite est
-chargée avec la syntaxe suivante :
+chargée avec la syntaxe suivante :</p>
 <div class="highlight"><pre><span></span><code>{!{ sqlide paramètres }!}
 </code></pre></div>
-Par exemple <code>{!{ sqlide titre="IDE avec initialisation et code pré-saisi" init="sql/init1.sql" sql="sql/code.sql" }!}</code>
-affichera :</p>
+<p>Par exemple, l'appel :</p>
+<div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;...&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
+</code></pre></div>
+<p>...devait alors s'écrire :</p>
+<p><code>{!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }!}</code></p>
+</details>
+<h3 id="activation">Activation</h3>
+<h4 id="pyodide-mkdocs-theme">Pyodide-MkDocs-Theme</h4>
+<p>Le thème gère tout automatiquement, à partir de sa version 4.4.6.</p>
+<p>Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des <code>sqlide</code>.</p>
+<h4 id="mkdocs-macros-plugin"><code>mkdocs-macros-plugin</code></h4>
+<p>Dans le cas d'utilisation du plugin des macros seul, il est nécessaire d'enregistrer la macro depuis votre fichier/module de macros personnalisées.
+Par défaut, il s'agit du fichier <code>main.py</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">define_env</span><span class="p">(</span><span class="n">env</span><span class="p">):</span>
+
+    <span class="c1"># Vos macros personnalisées ici:</span>
+    <span class="o">...</span>
+
+    <span class="c1"># Enregistrement de la macro sqlide:</span>
+    <span class="n">sql_plugin</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">_conf</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;sqlite-console&#39;</span><span class="p">]</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">macro</span><span class="p">(</span><span class="n">sql_plugin</span><span class="o">.</span><span class="n">sqlide</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="erreurs">Erreurs</h2>
+<p>Le plugin détectera les fichiers non existants :</p>
+<div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
+</code></pre></div>
 
 <div id="ide9" >
-<label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
+<label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">SELECT *
-FROM employees;
-
-SELECT COUNT(*) FROM employees;
-</textarea>
+<textarea id="sqlcommands" class="sqlcommands">-- Fichier de base 'bases/basem.db' introuvable</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -971,18 +1118,16 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide9").then(() => {
     const ide = document.querySelector("div#ide9");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
+    load(ide, '/', '', '', );
 }).catch(() => {});
 </script>
-<h3 id="erreurs">Erreurs</h3>
-<p>Le plugin détectera les fichiers non existants :</p>
-<div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
+<div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
 </code></pre></div>
 
 <div id="ide10" >
-<label for='sqlcommands'>Erreur fichier base manquant</label>
+<label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">--Fichier de base 'bases/basem.db' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">-- Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -990,23 +1135,6 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide10").then(() => {
     const ide = document.querySelector("div#ide10");
-    load(ide, '/', '', '', );
-}).catch(() => {});
-</script>
-<div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
-</code></pre></div>
-
-<div id="ide11" >
-<label for='sqlcommands'>Erreur fichier sql manquant</label>
-<br>
-<textarea id="sqlcommands" class="sqlcommands">--Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
-<div id="error" class="sqlerror"></div>
-<pre id="output" class="sqloutput"></pre>
-</div>
-<script>
-  onElementLoaded("div#ide11").then(() => {
-    const ide = document.querySelector("div#ide11");
     load(ide, '/', '', '', );
 }).catch(() => {});
 </script>
