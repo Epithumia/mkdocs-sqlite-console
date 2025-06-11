@@ -33,7 +33,7 @@ SKELETON = """
     load(ide, '{base}', '{init}', '{autoexec}', {worker});
 }}).catch(() => {{}});
 </script>
-""".strip()     # Stripping necessary for use as macro (indentation has to be worked out...)
+"""
 
 MACROS_TEMPLATE = "MKDOCS_SQLITE_CONSOLE_IDE_{}"
 
@@ -210,7 +210,7 @@ class SQLiteConsole(BasePlugin):
         if self.macros:
             # Insert code coming from the macro use itself (done now to avoid rendering troubles
             # when converting md 6> html after the macro content was inserted):
-            # To apply BEFORE using the old syntax logistic (relies on c.count value).god cod
+            # To apply BEFORE using the old syntax logistic (relies on c.count value).
             html = c.insert_macro_contents(html)
 
             # Still apply the "old way", for backward compatibility.
