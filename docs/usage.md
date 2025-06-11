@@ -147,16 +147,6 @@ donne :
 ???+ sql "Bloc accordéon avec initialisation et code pré-saisi"
     {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 
-!!! bug
-    Les blocs ne s'affichent pas correctement dans les admonitions qui sont repliées par défaut :
-    ```markdown
-    ??? sql "Bloc admonition avec initialisation et code pré-saisi"
-        {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
-    ```
-    Il faut cliquer sur le champ de texte pour que l'IDE s'affiche (incorrectement).
-    ??? sql "Bloc admonition avec initialisation et code pré-saisi"
-        {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
-
 ## Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme { #as-macros }
 
 `mkdocs-sqlite-console` est compatible avec l'utilisation du plugin [`mkdocs-macros-plugin`](https://mkdocs-macros-plugin.readthedocs.io/en/latest/), ainsi que le thème [Pyodide-MkDocs-Theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/).
