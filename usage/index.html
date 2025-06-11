@@ -382,6 +382,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#parametres" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramètres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#quelques-exemples" class="md-nav__link">
     <span class="md-ellipsis">
       Quelques exemples
@@ -440,11 +449,11 @@
         <li class="md-nav__item">
   <a href="#as-macros" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage avec le plugin macros ou Pyodide-MkDocs-Theme
+      Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Usage avec le plugin macros ou Pyodide-MkDocs-Theme">
+    <nav class="md-nav" aria-label="Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -651,6 +660,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#parametres" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramètres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#quelques-exemples" class="md-nav__link">
     <span class="md-ellipsis">
       Quelques exemples
@@ -709,11 +727,11 @@
         <li class="md-nav__item">
   <a href="#as-macros" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage avec le plugin macros ou Pyodide-MkDocs-Theme
+      Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Usage avec le plugin macros ou Pyodide-MkDocs-Theme">
+    <nav class="md-nav" aria-label="Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -797,7 +815,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css">
 <link rel="stylesheet" href="https://epithumia.github.io/mkdocs-sqlite-console//css/sqlite_ide.css">
 <script>sqljs_base_path="https://epithumia.github.io/mkdocs-sqlite-console/"</script>
-<h1 id="utilisation">Utilisation</h1>
+<script>var bdd1 = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");</script><h1 id="utilisation">Utilisation</h1>
 <h2 id="activer-le-plugin">Activer le plugin</h2>
 <p>Ajouter dans votre fichier <code>mkdocs.yml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
@@ -837,13 +855,14 @@ fichier <code>mkdocs.yml</code> une ligne du type</p>
 <code>mkdocs build</code> et <code>mkdocs gh-deploy</code> ne fonctionneront pas et signaleront la nécessité de le faire.</p>
 </div>
 <h2 id="afficher-la-consoleide">Afficher la console/IDE</h2>
+<h3 id="parametres">Paramètres</h3>
 <p>On peut afficher une console/IDE SQLite grâce à la commande <code>{{ sqlide paramètres }}</code>. Cette commande accepte quatre paramètres, tous optionnels :</p>
 <ul>
-<li>un <em>titre</em> : par exemple <code>titre="Exercice 1"</code>. Par défaut, le titre est "sql"</li>
-<li>un chemin vers un script SQL d'initialisation <em>init</em> : par exemple <code>init=sql/init.md</code></li>
-<li>un chemin vers une <em>base</em> SQLite : par exemple <code>bases/test.db</code></li>
-<li>un chemin vers un fichier de code <em>sql</em> pré-saisi dans l'IDE : par exemple <code>sql="sql/code.sql"</code></li>
-<li>si le mot clef <em>autoexec</em> est présent, alors le contenu de code sera exécuté comme si l'utilisateur avit cliqué le bouton</li>
+<li>un <code>titre</code> : par exemple <code>titre="Exercice 1"</code>. Par défaut, le titre est "sql"</li>
+<li>un chemin vers un script SQL d'initialisation, <code>init</code> : par exemple <code>init=sql/init.md</code></li>
+<li>un chemin vers une <code>base</code> SQLite : par exemple <code>bases/test.db</code></li>
+<li>un chemin vers un fichier de code <code>sql</code> pré-saisi dans l'IDE : par exemple <code>sql="sql/code.sql"</code></li>
+<li>si le mot clef <code>autoexec</code> est présent, alors le contenu de code sera exécuté comme si l'utilisateur avait cliqué le bouton</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Astuce</p>
@@ -866,7 +885,6 @@ fichier <code>mkdocs.yml</code> une ligne du type</p>
 <div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;IDE avec initialisation et code pré-saisi&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
 </code></pre></div>
 <p>On obtient l'affichage ci-dessous :</p>
-
 <div id="ide1" >
 <label for='sqlcommands'>IDE avec initialisation et code pré-saisi</label>
 <br>
@@ -888,7 +906,6 @@ SELECT COUNT(*) FROM employees;
 <p>On peut aussi charger une base directement :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;IDE avec une base binaire chargée et code pré-saisi autoexécuté&quot; base=&quot;bases/test.db&quot; sql=&quot;sql/code.sql&quot; autoexec}}
 </code></pre></div>
-
 <div id="ide2" >
 <label for='sqlcommands'>IDE avec une base binaire chargée et code pré-saisi autoexécuté</label>
 <br>
@@ -911,7 +928,6 @@ SELECT COUNT(*) FROM employees;
 <p>Si l'on ne veut que le résultat de la requête sans pour autant afficher l'IDE, il suffit d'ajouter l'option <em>hide</em> :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;IDE avec une base binaire chargée et code pré-saisi autoexécuté, IDE caché&quot; base=&quot;bases/test.db&quot; sql=&quot;sql/code.sql&quot; autoexec hide}}
 </code></pre></div>
-
 <div id="ide3" class="sqlhidden">
 <label for='sqlcommands'>Sql</label>
 <br>
@@ -940,7 +956,6 @@ SELECT COUNT(*) FROM employees;
 
 {{ sqlide titre=&quot;IDE sans initialisation, avec code pré-saisi, dans l&#39;espace bdd1&quot; sql=&quot;sql/code.sql&quot; espace=bdd1}}
 </code></pre></div>
-<script>var bdd1 = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");</script>
 <div id="ide4" >
 <label for='sqlcommands'>IDE avec initialisation dans l'espace bdd1</label>
 <br>
@@ -955,7 +970,6 @@ SELECT COUNT(*) FROM employees;
     load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', bdd1);
 }).catch(() => {});
 </script>
-
 
 <div id="ide5" >
 <label for='sqlcommands'>IDE sans initialisation, avec code pré-saisi, dans l'espace bdd1</label>
@@ -983,7 +997,6 @@ SELECT COUNT(*) FROM employees;
 <p>donne :</p>
 <div class="admonition sql">
 <p class="admonition-title">Bloc admonition avec initialisation et code pré-saisi</p>
-
 <div id="ide6" >
 <label for='sqlcommands'>Init + Code</label>
 <br>
@@ -1009,7 +1022,6 @@ SELECT COUNT(*) FROM employees;
 <p>donne :</p>
 <details class="sql" open="open">
 <summary>Bloc accordéon avec initialisation et code pré-saisi</summary>
-
 <div id="ide7" >
 <label for='sqlcommands'>Init + Code</label>
 <br>
@@ -1029,38 +1041,8 @@ SELECT COUNT(*) FROM employees;
 }).catch(() => {});
 </script>
 </details>
-<div class="admonition bug">
-<p class="admonition-title">Bug</p>
-<p>Les blocs ne s'affichent pas correctement dans les admonitions qui sont repliées par défaut :
-<div class="highlight"><pre><span></span><code>??? sql &quot;Bloc admonition avec initialisation et code pré-saisi&quot;
-    {{ sqlide titre=&quot;Init + Code&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
-</code></pre></div>
-Il faut cliquer sur le champ de texte pour que l'IDE s'affiche (incorrectement).</p>
-<details class="sql">
-<summary>Bloc admonition avec initialisation et code pré-saisi</summary>
-
-<div id="ide8" >
-<label for='sqlcommands'>Init + Code</label>
-<br>
-<textarea id="sqlcommands" class="sqlcommands">SELECT *
-FROM employees;
-
-SELECT COUNT(*) FROM employees;
-</textarea>
-<button id="execute" class="sqlbutton execute">Exécuter</button>
-<div id="error" class="sqlerror"></div>
-<pre id="output" class="sqloutput"></pre>
-</div>
-<script>
-  onElementLoaded("div#ide8").then(() => {
-    const ide = document.querySelector("div#ide8");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
-}).catch(() => {});
-</script>
-</details>
-</div>
-<h2 id="as-macros">Usage avec le plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">macros</a> ou <a href="https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/">Pyodide-MkDocs-Theme</a></h2>
-<p><code>mkdocs-sqlite-console</code> est compatible avec l'utilisation du plugin <code>mkdocs-macros</code>, ainsi que le thème Pyodide-MkDocs-Theme.</p>
+<h2 id="as-macros">Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme</h2>
+<p><code>mkdocs-sqlite-console</code> est compatible avec l'utilisation du plugin <a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/"><code>mkdocs-macros-plugin</code></a>, ainsi que le thème <a href="https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/">Pyodide-MkDocs-Theme</a>.</p>
 <p>Si l'un des deux est utilisé (avec une manipulation de configuration à faire pour le plugin des macros seul), il est alors possible de déclarer un <code>sqlide</code> via un appel de macro :</p>
 <div class="highlight"><pre><span></span><code>{{ sqlide(titre=&quot;Init + Code&quot;, init=&quot;sql/init1.sql&quot;, sql=&quot;sql/code.sql&quot;) }}
 </code></pre></div>
@@ -1070,7 +1052,39 @@ SELECT COUNT(*) FROM employees;
 <li>Ajouter les parenthèses autour des arguments,</li>
 <li>Ajouter des virgules entre les arguments,</li>
 <li>Les guillemets autour des valeurs des arguments sont alors indispensables.</li>
+<li>Les arguments passés sous forme de chaînes de caractères seule, dans la syntaxe originale (<code>autoexec</code>, <code>hide</code>), doivent être passés sous forme de booléens. On peut aussi utiliser des entiers pour raccourcir les déclaration : <code>0</code> ou <code>1</code>.</li>
 </ul>
+<details class="help">
+<summary>Signature exacte de la macro</summary>
+<p>Voici la déclaration exacte de la macro, et les valeurs par défaut associées aux différents arguments :</p>
+<div class="highlight"><pre><span></span><code><span class="n">sqlide</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">titre</span><span class="o">=</span><span class="s1">&#39;Sql&#39;</span><span class="p">,</span>
+    <span class="n">sql</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">espace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">base</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
+    <span class="n">init</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">hide</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">autoexec</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>
+<p>Les trois premiers arguments, <code>titre</code>, <code>sql</code> et <code>espace</code> sont des arguments positionnels avec des valeurs par défaut : il n'est pas obligatoire de mettre le nom de l'argument (mais dans ce cas, il faut respecter l'ordre de déclaration).</p>
+</li>
+<li>
+<p>Les arguments après <code>*,</code> sont des arguments nommés. Ils doivent impérativement être renseignés en précisant le nom de l'argument.</p>
+</li>
+<li>
+<p>Il est toujours possible de renseigner les noms des arguments positionnels si on le souhaite (dans ce cas, il n'est pas indispensable de respecter leur ordre dans la déclaration).</p>
+</li>
+</ul>
+<p><br></p>
+<p>L'appel de l'exemple ci-dessus peut donc également se faire comme suit :</p>
+<div class="highlight"><pre><span></span><code>{{ sqlide(&quot;Init + Code&quot;, &quot;sql/code.sql&quot;, init=&quot;sql/init1.sql&quot;) }}
+</code></pre></div>
+</details>
 <details class="tip">
 <summary>Anciennes syntaxes - versions 1.0.7 et antérieures</summary>
 <p style="color:#FFAA00"><em>Ceci décrit les anciens comportements pour utiliser <code>mkdocs-sqlite-console</code> avec le plugin des macros ou PMT activés.<!-- markdownlint-disable-line MD046 -->
@@ -1087,12 +1101,12 @@ chargée avec la syntaxe suivante :</p>
 <p><code>{!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }!}</code></p>
 </details>
 <h3 id="activation">Activation</h3>
-<h4 id="pyodide-mkdocs-theme">Pyodide-MkDocs-Theme</h4>
+<h4 id="pyodide-mkdocs-theme"><code>Pyodide-MkDocs-Theme</code></h4>
 <p>Le thème gère tout automatiquement, à partir de sa version 4.4.6.</p>
-<p>Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des <code>sqlide</code>.</p>
+<p>Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des <code>sqlide</code>, ou de mettre en place la logistique décrite ci-dessous pour <code>mkdocs-macros-plugin</code>.</p>
 <h4 id="mkdocs-macros-plugin"><code>mkdocs-macros-plugin</code></h4>
-<p>Dans le cas d'utilisation du plugin des macros seul, il est nécessaire d'enregistrer la macro depuis votre fichier/module de macros personnalisées.
-Par défaut, il s'agit du fichier <code>main.py</code> :</p>
+<p>Dans le cas de l'utilisation du plugin des macros seul, il est nécessaire d'enregistrer la macro depuis votre fichier/module de macros personnalisées.</p>
+<p>Par défaut, il s'agit du fichier <code>main.py</code> :</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">define_env</span><span class="p">(</span><span class="n">env</span><span class="p">):</span>
 
     <span class="c1"># Vos macros personnalisées ici:</span>
@@ -1106,8 +1120,7 @@ Par défaut, il s'agit du fichier <code>main.py</code> :</p>
 <p>Le plugin détectera les fichiers non existants :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier base manquant&quot; base=bases/basem.db sql=sql/code1.sql }}
 </code></pre></div>
-
-<div id="ide9" >
+<div id="ide8" >
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">-- Fichier de base 'bases/basem.db' introuvable</textarea>
@@ -1116,15 +1129,14 @@ Par défaut, il s'agit du fichier <code>main.py</code> :</p>
 <pre id="output" class="sqloutput"></pre>
 </div>
 <script>
-  onElementLoaded("div#ide9").then(() => {
-    const ide = document.querySelector("div#ide9");
+  onElementLoaded("div#ide8").then(() => {
+    const ide = document.querySelector("div#ide8");
     load(ide, '/', '', '', );
 }).catch(() => {});
 </script>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
 </code></pre></div>
-
-<div id="ide10" >
+<div id="ide9" >
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
 <textarea id="sqlcommands" class="sqlcommands">-- Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
@@ -1133,8 +1145,8 @@ Par défaut, il s'agit du fichier <code>main.py</code> :</p>
 <pre id="output" class="sqloutput"></pre>
 </div>
 <script>
-  onElementLoaded("div#ide10").then(() => {
-    const ide = document.querySelector("div#ide10");
+  onElementLoaded("div#ide9").then(() => {
+    const ide = document.querySelector("div#ide9");
     load(ide, '/', '', '', );
 }).catch(() => {});
 </script>
