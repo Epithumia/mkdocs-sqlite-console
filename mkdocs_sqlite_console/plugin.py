@@ -16,8 +16,9 @@ CSS_PATH = BASE_PATH + "/css/"
 
 JS_PATH = BASE_PATH + "/js/"
 
+
+# "{workerinit}" was the first line of the template: removed in version > 2.0.0.
 SKELETON = """
-{workerinit}
 <div id="ide{numide}" {hide}>
 <label for='sqlcommands'>{title}</label>
 <br>
@@ -34,12 +35,17 @@ SKELETON = """
 </script>
 """
 
+MACROS_TEMPLATE = "MKDOCS_SQLITE_CONSOLE_IDE_{}"
+
+
 
 class Counter:
     def __init__(self, config):
         self.count = 0
         self.config = config
         self.spaces = {}
+        self.macros_contents = {}
+        self.worker_inits = []
 
     def insert_ide(self, macro):
         regex_titre = r".*?titre=\"(.*?)\""
@@ -73,17 +79,16 @@ class Counter:
         space = space or None
 
         worker = ""
-        workerinit = ""
         if space:
             if space not in self.spaces:
                 self.spaces[space] = 0
-                workerinit = '<script>var {worker} = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");</script>'.format(
+                workerinit = 'var {worker} = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");'.format(
                     worker=space
                 )
+                self.worker_inits.append(workerinit)
                 worker = space
             else:
                 self.spaces[space] += 1
-                workerinit = ""
                 worker = space
         if sql != "":
             try:
@@ -115,7 +120,7 @@ class Counter:
                 sql = "-- Fichier de base '" + base + "' introuvable"
                 init = ""
                 base = "/"
-        return SKELETON.format(
+        html = SKELETON.format(
             numide=self.count,
             title=titre,
             hide=hide,
@@ -124,8 +129,35 @@ class Counter:
             init=init,
             autoexec=autoexec,
             worker=worker,
-            workerinit=workerinit,
+            #workerinit=workerinit,      # Not inserted here anymore (version > 2.0.0)
         )
+        return html
+
+    def register_macro_content(self, html_code):
+        """
+        Store the html code generated from the macro call, to insert it later (in on_page_content
+        hook: this avoids rendering troubles of the SQL code provided by the user, when mkdocs
+        renders md to html: the user's code is in `<pre>` tags, so the line breaks have to be
+        kept "as they are".
+        """
+        token = MACROS_TEMPLATE.format(self.count)
+        self.macros_contents[token] = html_code
+        return token
+
+    def insert_macro_contents(self, html):
+        """ To do _before_ resolving the older syntaxes. """
+        if self.count:
+            html = re.sub(
+                MACROS_TEMPLATE.format('\\d+'),
+                lambda m: self.macros_contents[m[0]],
+                html,
+            )
+        return html
+
+    def get_worker_inits(self):
+        workers = " ".join(self.worker_inits)
+        return f"<script>{ workers }</script>"
+
 
 
 # noinspection PyUnusedLocal
@@ -174,26 +206,34 @@ class SQLiteConsole(BasePlugin):
         # NOTE: regex are working on the interpreted markdown, so searching for `<p>...</p>` to
         #       not match calls that are in code blocks, in the documentation.
 
+        c = self.counter_for(page)
         if self.macros:
+            # Insert code coming from the macro use itself (done now to avoid rendering troubles
+            # when converting md 6> html after the macro content was inserted):
+            # To apply BEFORE using the old syntax logistic (relies on c.count value).
+            html = c.insert_macro_contents(html)
+
             # Still apply the "old way", for backward compatibility.
             # If used as an actual macro, this won't find anything to update in the page.
             regex = r"(?:^|\n)\s*?<p>\s*?{!{\s*?sqlide.*?\s+?(.*?)\s*?}!}</p>(?:\n|$)"
         else:
             regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
 
-        c = self.counter_for(page)
         if c:
             html = re.sub(regex, c.insert_ide, html, flags=re.MULTILINE | re.DOTALL)
 
         return html
 
-    def on_page_context(self, ctx, page: Page, config, **kwargs):
+    def on_page_context(self, ctx, page:Page, config, **kwargs):
 
         c = self.counter_for(page)
+        sql_scripts = ""
+        is_page_with_sql_ides = bool(c and c.count)
 
         # When using navigation.instant, the scripts are loaded once only and have to always
-        # be included in every page (because one doesn't know where the user will land first)
-        if self.has_instant_nav or c and c.count:
+        # be included in every page (because one doesn't know where the user will land first).
+        # If no navigation.instant, they have to be inserted in all pages using sql IDEs.
+        if self.has_instant_nav or is_page_with_sql_ides:
 
             base_url = config["site_url"]
             codemirror = (
@@ -210,6 +250,18 @@ class SQLiteConsole(BasePlugin):
 <link rel="stylesheet" href="{ base_url }/css/sqlite_ide.css">
 <script>sqljs_base_path="{ base_url }"</script>
 """
+
+        # If some sqlides are used in the page, insert the workers logistic:
+        # NOTES:
+        #   1. This depends on the page content, and is not related to navigation.instant
+        #   2. The workers have to be inserted once per page, depending on the number of "spaces"
+        #   3. They have to be inserted _after_ the sql scripts...
+        #   4. ...but _before_ any SQL IDE in the html.
+        if is_page_with_sql_ides:
+            sql_scripts += c.get_worker_inits()
+
+        # Mutate the page content with all the required logistic if any:
+        if sql_scripts:
             page.content = sql_scripts + page.content
 
     def counter_for(self, page, *, set_counter: Counter = None) -> Optional[Counter]:
@@ -222,17 +274,19 @@ class SQLiteConsole(BasePlugin):
     def sqlide(
         self,
         titre=None,
-        autoexec=None,
-        hide=None,
-        init=None,
-        base=None,
         sql=None,
         espace=None,
+        *,
+        base=None,
+        init=None,
+        hide=None,
+        autoexec=None,
     ):
         """
         Can be registered as a mkdocs macro (through the macro module, or automatically
-        when using PMT).
+        when using Pyodide-MkDocs-Theme).
         """
         # (actual default values are handled in Counter.build_sql)
         c = self.counter_for(self.macros.page)
-        return c.build_sql(titre, autoexec, hide, init, base, sql, espace)
+        html_code = c.build_sql(titre, autoexec, hide, init, base, sql, espace)
+        return c.register_macro_content(html_code)

@@ -52,13 +52,15 @@ site_url: https://epithumia.github.io/mkdocs-sqlite-console
 
 ## Afficher la console/IDE
 
+### Paramètres
+
 On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramètres }}`. Cette commande accepte quatre paramètres, tous optionnels :
 
-- un *titre* : par exemple `titre="Exercice 1"`. Par défaut, le titre est "sql"
-- un chemin vers un script SQL d'initialisation *init* : par exemple `init=sql/init.md`
-- un chemin vers une *base* SQLite : par exemple `bases/test.db`
-- un chemin vers un fichier de code *sql* pré-saisi dans l'IDE : par exemple `sql="sql/code.sql"`
-- si le mot clef *autoexec* est présent, alors le contenu de code sera exécuté comme si l'utilisateur avit cliqué le bouton
+- un `titre` : par exemple `titre="Exercice 1"`. Par défaut, le titre est "sql"
+- un chemin vers un script SQL d'initialisation, `init` : par exemple `init=sql/init.md`
+- un chemin vers une `base` SQLite : par exemple `bases/test.db`
+- un chemin vers un fichier de code `sql` pré-saisi dans l'IDE : par exemple `sql="sql/code.sql"`
+- si le mot clef `autoexec` est présent, alors le contenu de code sera exécuté comme si l'utilisateur avait cliqué le bouton
 
 !!! tip "Astuce"
     A part pour le titre, les apostrophes ou guillemets sont optionnels. Ainsi, `sql="sql/code.sql"`,
@@ -155,9 +157,9 @@ donne :
     ??? sql "Bloc admonition avec initialisation et code pré-saisi"
         {{ sqlide titre="Init + Code" init="sql/init1.sql" sql="sql/code.sql" }}
 
-## Usage avec le plugin [macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/) ou [Pyodide-MkDocs-Theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/) { #as-macros }
+## Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme { #as-macros }
 
-`mkdocs-sqlite-console` est compatible avec l'utilisation du plugin `mkdocs-macros`, ainsi que le thème Pyodide-MkDocs-Theme.
+`mkdocs-sqlite-console` est compatible avec l'utilisation du plugin [`mkdocs-macros-plugin`](https://mkdocs-macros-plugin.readthedocs.io/en/latest/), ainsi que le thème [Pyodide-MkDocs-Theme](https://frederic-zinelli.gitlab.io/pyodide-mkdocs-theme/).
 
 Si l'un des deux est utilisé (avec une manipulation de configuration à faire pour le plugin des macros seul), il est alors possible de déclarer un `sqlide` via un appel de macro :
 
@@ -172,6 +174,40 @@ Par rapport à l'utilisation normale du plugin, il faut :
 - Ajouter les parenthèses autour des arguments,
 - Ajouter des virgules entre les arguments,
 - Les guillemets autour des valeurs des arguments sont alors indispensables.
+- Les arguments passés sous forme de chaînes de caractères seule, dans la syntaxe originale (`autoexec`, `hide`), doivent être passés sous forme de booléens. On peut aussi utiliser des entiers pour raccourcir les déclaration : `0` ou `1`.
+
+??? help "Signature exacte de la macro"
+
+    Voici la déclaration exacte de la macro, et les valeurs par défaut associées aux différents arguments :
+
+    ```python
+    sqlide(
+        self,
+        titre='Sql',
+        sql='',
+        espace=None,
+        *,
+        base='/',
+        init='',
+        hide=False,
+        autoexec=False,
+    )
+    ```
+
+    * Les trois premiers arguments, `titre`, `sql` et `espace` sont des arguments positionnels avec des valeurs par défaut : il n'est pas obligatoire de mettre le nom de l'argument (mais dans ce cas, il faut respecter l'ordre de déclaration).
+
+    * Les arguments après `*,` sont des arguments nommés. Ils doivent impérativement être renseignés en précisant le nom de l'argument.
+
+    * Il est toujours possible de renseigner les noms des arguments positionnels si on le souhaite (dans ce cas, il n'est pas indispensable de respecter leur ordre dans la déclaration).
+
+    <br>
+
+    L'appel de l'exemple ci-dessus peut donc également se faire comme suit :
+
+
+    ```markdown
+    {{ sqlide("Init + Code", "sql/code.sql", init="sql/init1.sql") }}
+    ```
 
 ??? tip "Anciennes syntaxes - versions 1.0.7 et antérieures"
 
@@ -199,15 +235,16 @@ Par rapport à l'utilisation normale du plugin, il faut :
 
 ### Activation
 
-#### Pyodide-MkDocs-Theme
+#### `Pyodide-MkDocs-Theme`
 
 Le thème gère tout automatiquement, à partir de sa version 4.4.6.
 
-Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des `sqlide`.
+Les versions antérieures nécessitent d'utiliser les anciennes syntaxes de déclaration des `sqlide`, ou de mettre en place la logistique décrite ci-dessous pour `mkdocs-macros-plugin`.
 
 #### `mkdocs-macros-plugin`
 
-Dans le cas d'utilisation du plugin des macros seul, il est nécessaire d'enregistrer la macro depuis votre fichier/module de macros personnalisées.
+Dans le cas de l'utilisation du plugin des macros seul, il est nécessaire d'enregistrer la macro depuis votre fichier/module de macros personnalisées.
+
 Par défaut, il s'agit du fichier `main.py` :
 
 ```python
