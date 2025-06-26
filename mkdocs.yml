@@ -16,6 +16,12 @@ nav:
         - 'License': 'licence.md'
         - 'Historique des versions': 'notes-de-version.md'
 
+    # - essai: 'essai/meh.md'   # testing purpose
+
+exclude_docs: |   # Désactiver tout le bloc pour activer dans la nav
+    essai/**
+
+
 repo_url: https://github.com/epithumia/mkdocs-sqlite-console
 site_url: https://epithumia.github.io/mkdocs-sqlite-console
 edit_uri: edit/main/docs/

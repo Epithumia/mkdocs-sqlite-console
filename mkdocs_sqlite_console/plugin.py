@@ -1,11 +1,13 @@
 import os
+from pathlib import Path
 import re
-from typing import Optional
+from typing import Optional, Tuple
 
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import File
 from mkdocs.structure.pages import Page
+from mkdocs.config.defaults import MkDocsConfig
 
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -15,6 +17,8 @@ LIBS_PATH = BASE_PATH + "/libs/"
 CSS_PATH = BASE_PATH + "/css/"
 
 JS_PATH = BASE_PATH + "/js/"
+
+ARG_PATTERN_TEMPLATE = "{}\\s*=\\s*[\"']?([^\\s\"']*)"
 
 
 # "{workerinit}" was the first line of the template: removed in version > 2.0.0.
@@ -39,35 +43,45 @@ MACROS_TEMPLATE = "MKDOCS_SQLITE_CONSOLE_IDE_{}"
 
 
 
+
+
+
+
 class Counter:
+
     def __init__(self, config):
+        self.ROOT_URI = Path(config['docs_dir']).as_posix()
         self.count = 0
-        self.config = config
+        self.config: MkDocsConfig = config
         self.spaces = {}
         self.macros_contents = {}
         self.worker_inits = []
 
-    def insert_ide(self, macro):
-        regex_titre = r".*?titre=\"(.*?)\""
-        regex_init = r".*?init=[\"\']?\b([^\s]*)\b"
-        regex_base = r".*?base=[\"\']?\b([^\s]*)\b"
-        regex_sql = r".*?sql=[\"\']?\b([^\s]*)\b"
-        regex_space = r".*?espace=[\"\']?\b([^\s]*)\b"
+    def insert_ide(self, page:Page):
+        def wrapped(matches):
 
-        params = str(macro.groups(0)[0])
+            regex_titre = r".*?titre\s*=\s*\"(.*?)\""
+            regex_init = ARG_PATTERN_TEMPLATE.format('init')
+            regex_base = ARG_PATTERN_TEMPLATE.format('base')
+            regex_sql = ARG_PATTERN_TEMPLATE.format('sql')
+            regex_space = ARG_PATTERN_TEMPLATE.format('espace')
 
-        titre = "".join(re.findall(regex_titre, params))
-        autoexec = "autoexec" in params
-        hide = "hide" in params
-        init = "".join(re.findall(regex_init, params))
-        base = "".join(re.findall(regex_base, params))
-        sql = "".join(re.findall(regex_sql, params))
-        space = "".join(re.findall(regex_space, params))
+            params = str(matches.groups(0)[0])
 
-        return self.build_sql(titre, autoexec, hide, init, base, sql, space)
+            titre = "".join(re.findall(regex_titre, params))
+            autoexec = "autoexec" in params
+            hide = "hide" in params
+            init = "".join(re.findall(regex_init, params))
+            base = "".join(re.findall(regex_base, params))
+            sql = "".join(re.findall(regex_sql, params))
+            space = "".join(re.findall(regex_space, params))
 
-    def build_sql(self, titre, autoexec, hide, init, base, sql, space):
+            return self.build_sql(titre, autoexec, hide, init, base, sql, space, page=page)
+        return wrapped
+
+    def build_sql(self, titre, autoexec, hide, init, base, sql, space, *, page:Page=None):
         self.count += 1
+        worker = ""
 
         # handle defaults (centralizing the logic in one single place):
         autoexec = True if autoexec else ""
@@ -78,7 +92,6 @@ class Counter:
         sql = sql or ""
         space = space or None
 
-        worker = ""
         if space:
             if space not in self.spaces:
                 self.spaces[space] = 0
@@ -90,37 +103,28 @@ class Counter:
             else:
                 self.spaces[space] += 1
                 worker = space
+
         if sql != "":
-            try:
-                with open(os.path.abspath(self.config["docs_dir"]) + "/" + sql) as f:
-                    sql = f.readlines()
-                    sql = "".join(sql)
-                    if autoexec:
-                        autoexec = sql
-                        autoexec = autoexec.replace("\n", "\\n")
-                        autoexec = autoexec.replace("'", "\\'")
-            except OSError:
-                sql = "Fichier '" + sql + "' introuvable"
+            ok, sql, _ = self.get_relative_file(page, sql, "Fichier")
+            if ok and autoexec:
+                autoexec = sql.replace("\n", "\\n").replace("'", "\\'")
+
         if init != "":
-            try:
-                with open(os.path.abspath(self.config["docs_dir"]) + "/" + init) as f:
-                    init = f.readlines()
-                    init = "".join(init)
-                    init = init.replace("\n", "\\n")
-                    init = init.replace("'", "\\'")
-            except OSError:
-                sql = "-- Fichier d'initialisation '" + init + "' introuvable"
-                init = ""
+            ok, init, _ = self.get_relative_file(page, init, "-- Fichier d'initialisation")
+            init = init.replace("\n", "\\n").replace("'", "\\'")
+            if not ok:
+                sql, init = init, ""
+
         if base != "/":
-            base_url = self.config["site_url"]
-            if os.path.isfile(os.path.abspath(self.config["docs_dir"]) + "/" + base):
-                base = base_url + "/" + base
-                base = base.replace("//", "/")
+            ok, nope, resolved_path = self.get_relative_file(page, base, "-- Fichier de base")
+            if ok:
+                base = Path(resolved_path).as_posix().replace(self.ROOT_URI, self.config['site_url'])
             else:
-                sql = "-- Fichier de base '" + base + "' introuvable"
+                sql = nope
                 init = ""
                 base = "/"
-        html = SKELETON.format(
+
+        ide_html = SKELETON.format(
             numide=self.count,
             title=titre,
             hide=hide,
@@ -131,7 +135,35 @@ class Counter:
             worker=worker,
             #workerinit=workerinit,      # Not inserted here anymore (version > 2.0.0)
         )
-        return html
+        return ide_html
+
+    def get_relative_file(self, page:Page, rel_path:str, header:str) -> Tuple[bool, str, str]:
+        """
+        Extract a file relative to the current markdown file or to the docs dir, or
+        return a default message.
+        """
+        docs = self.config["docs_dir"]
+
+        candidates_uris_srcs = [
+            f"{ docs }/{ Path(page.file.src_uri).parent.as_posix() }",      # Relative to current page
+            docs,                                                           # Relative to docs_dir
+        ]
+        for cnd in candidates_uris_srcs:
+            path_uri = f"{ cnd }/{ rel_path }"
+            path = os.path.normpath(os.path.abspath(path_uri))
+
+            if not os.path.isfile(path):
+                continue
+
+            if path.endswith('.db'):
+                # .db are not readable with utf-8, but no need of their content so no problem.
+                content = '_dummy'
+            else:
+                with open(path, 'r', encoding='utf-8') as f:
+                    content = f.read().replace('\n','')
+            return True, content, path
+
+        return False, f"{ header } { rel_path } introuvable.", rel_path
 
     def register_macro_content(self, html_code):
         """
@@ -220,7 +252,7 @@ class SQLiteConsole(BasePlugin):
             regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
 
         if c:
-            html = re.sub(regex, c.insert_ide, html, flags=re.MULTILINE | re.DOTALL)
+            html = re.sub(regex, c.insert_ide(page), html, flags=re.MULTILINE | re.DOTALL)
 
         return html
 
@@ -287,6 +319,7 @@ class SQLiteConsole(BasePlugin):
         when using Pyodide-MkDocs-Theme).
         """
         # (actual default values are handled in Counter.build_sql)
-        c = self.counter_for(self.macros.page)
-        html_code = c.build_sql(titre, autoexec, hide, init, base, sql, espace)
+        page = self.macros.page
+        c = self.counter_for(page)
+        html_code = c.build_sql(titre, autoexec, hide, init, base, sql, espace, page=page)
         return c.register_macro_content(html_code)
