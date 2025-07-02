@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "mkdocs-sqlite-console"
 authors = [
     { name = "Rafael Lopez", email = "rafael.lopez@universite-paris-saclay.fr" },
+    { name = "Frédéric Zinelli", email = "frederic.zinelli@gmail.com"}
 ]
 description = "Mkdocs-SQLite-Console est un plugin pour MkDocs, qui permet d'afficher un IDE SQL (SQLite) permettant d'exécuter du code."
 readme = "README.md"
