@@ -5,14 +5,12 @@ from typing import Optional, Tuple
 
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
-from mkdocs.structure.files import File
+from mkdocs.structure.files import File, Files
 from mkdocs.structure.pages import Page
 from mkdocs.config.defaults import MkDocsConfig
 
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
-
-LIBS_PATH = BASE_PATH + "/libs/"
 
 CSS_PATH = BASE_PATH + "/css/"
 
@@ -160,7 +158,7 @@ class Counter:
                 content = '_dummy'
             else:
                 with open(path, 'r', encoding='utf-8') as f:
-                    content = f.read().replace('\n','')
+                    content = f.read()
             return True, content, path
 
         return False, f"{ header } { rel_path } introuvable.", rel_path
@@ -220,15 +218,12 @@ class SQLiteConsole(BasePlugin):
 
         return config
 
-    def on_files(self, files, config):
-        files.append(
-            File("sqlite_ide.css", CSS_PATH, config["site_dir"] + "/css/", False)
-        )
-        files.append(File("sqlite_ide.js", JS_PATH, config["site_dir"] + "/js/", False))
-        files.append(
-            File("worker.sql-wasm.js", JS_PATH, config["site_dir"] + "/js/", False)
-        )
-        files.append(File("sql-wasm.wasm", JS_PATH, config["site_dir"] + "/js/", False))
+    def on_files(self, files:Files, config):
+        for folder in "css js".split():
+            for file in (Path(BASE_PATH) / folder).iterdir():
+                files.append(
+                    File(file.name, file.parent, config["site_dir"] + f"/{ folder }/", False)
+                )
         return files
 
     def on_pre_page(self, page, config, files):
@@ -294,7 +289,11 @@ class SQLiteConsole(BasePlugin):
 
         # Mutate the page content with all the required logistic if any:
         if sql_scripts:
-            page.content = sql_scripts + page.content
+            page.content = f"""\
+{ sql_scripts }
+{ page.content }
+<script src="{ base_url }/js/material-tabbed-fix.js"></script>
+"""
 
     def counter_for(self, page, *, set_counter: Counter = None) -> Optional[Counter]:
         key = page and page.url

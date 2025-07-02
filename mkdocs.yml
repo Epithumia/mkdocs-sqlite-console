@@ -17,7 +17,6 @@ nav:
         - 'Historique des versions': 'notes-de-version.md'
 
     # - essai: 'essai/meh.md'   # testing purpose
-
 exclude_docs: |   # Désactiver tout le bloc pour activer dans la nav
     essai/**
 
@@ -36,3 +35,8 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - attr_list
+  - pymdownx.tabbed: # Volets glissants.  === "Mon volet"
+      alternate_style: true   # compatibilité pour mobiles
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
