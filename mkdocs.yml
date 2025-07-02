@@ -16,7 +16,8 @@ nav:
         - 'License': 'licence.md'
         - 'Historique des versions': 'notes-de-version.md'
 
-    # - essai: 'essai/meh.md'   # testing purpose
+    # - Bac à sable: 'essai/bac_a_sable.md'   # testing purpose
+
 exclude_docs: |   # Désactiver tout le bloc pour activer dans la nav
     essai/**
 
