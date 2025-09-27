@@ -31,13 +31,26 @@ plugins:
   # - macros          # Activer pour tester en local (Nota: à placer avant sqlite-console)
   - sqlite-console
 
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - extras/tablesort.js
+
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
   - attr_list
   - pymdownx.tabbed: # Volets glissants.  === "Mon volet"
       alternate_style: true   # compatibilité pour mobiles
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
           case: lower
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
