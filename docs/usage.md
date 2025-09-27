@@ -57,10 +57,13 @@ site_url: https://epithumia.github.io/mkdocs-sqlite-console
 On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramètres }}`. Cette commande accepte quatre paramètres, tous optionnels :
 
 - un `titre` : par exemple `titre="Exercice 1"`. Par défaut, le titre est "sql"
-- un chemin vers un script SQL d'initialisation, `init` : par exemple `init=sql/init.md`
-- un chemin vers une `base` SQLite : par exemple `bases/test.db`
 - un chemin vers un fichier de code `sql` pré-saisi dans l'IDE : par exemple `sql="sql/code.sql"`
+- un nom `espace`, qui permet de mettre la même base de données [en commun avec plusieurs ides](#base-partagee-entre-plusieurs-consoles).
+- un chemin vers un script SQL d'initialisation, `init` : par exemple `init=sql/init.sql`
+- un chemin vers une `base` SQLite : par exemple `bases/test.db`
 - si le mot clef `autoexec` est présent, alors le contenu de code sera exécuté comme si l'utilisateur avait cliqué le bouton
+- si le mot clef `hide` est présent, l'élément sera [masqué dans la page](#cacher-lide)
+
 
 !!! tip "Astuce"
     A part pour le titre, les apostrophes ou guillemets sont optionnels. Ainsi, `sql="sql/code.sql"`,
@@ -164,7 +167,7 @@ Par rapport à l'utilisation normale du plugin, il faut :
 - Ajouter les parenthèses autour des arguments,
 - Ajouter des virgules entre les arguments,
 - Les guillemets autour des valeurs des arguments sont alors indispensables.
-- Les arguments passés sous forme de chaînes de caractères seule, dans la syntaxe originale (`autoexec`, `hide`), doivent être passés sous forme de booléens. On peut aussi utiliser des entiers pour raccourcir les déclaration : `0` ou `1`.
+- Les arguments passés sous forme de chaînes de caractères seules dans la syntaxe originale (`autoexec`, `hide`) doivent être passés sous forme de booléens. On peut aussi utiliser des entiers pour raccourcir les déclarations : `0` ou `1`.
 
 ??? help "Signature exacte de la macro"
 
