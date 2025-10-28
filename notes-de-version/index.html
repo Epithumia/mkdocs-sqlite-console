@@ -26,6 +26,9 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
       
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
       
 
 
@@ -53,7 +56,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -104,6 +114,32 @@
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -590,6 +626,42 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#201" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0.2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0.3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.0
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -776,6 +848,42 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#201" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0.2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0.3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.0
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -865,7 +973,73 @@
 </ul>
 <h3 id="200">2.0.0</h3>
 <ul>
-<li>Support pour utilisation en tant que macro {{ sqlide(...) }}</li>
+<li>ADD - Support pour utilisation en tant que macro {{ sqlide(...) }}</li>
+<li>BREAKING: la syntaxe en cas de présence de mkdocs-macros-plugin change complètement. Cf. la documentation pour les changements à faire</li>
+<li>FIX - Compatibilité accrue avec PMT (merci @FredZinelli)</li>
+<li>CHANGE - Passage de SQL.js à la version 1.13.0</li>
+</ul>
+<h3 id="201">2.0.1</h3>
+<ul>
+<li>FIX - les sqlides dans les admonitions repliées ??? n'étaient pas rendues correctement quand le sqlide était créés via les macros.</li>
+<li>
+<p>FIX - les pages mélangeant les deux types de syntaxes (macros + ancienne syntaxes) pouvaient se retrouver avec des IDE non fonctionnels car les worker des espaces communs étaient insérés lors de la première insertions d'un "espace" sql, mais l'ordre des générations de code pouvait ne pas suivre l'ordre de lecture dans la page : toutes les macros d'abord, puis une seconde passe est faite pour les anciennes syntaxes.</p>
+</li>
+<li>
+<p>CHANGE - Changement de signature pour la macro, pour pouvoir utiliser qqes arguments positionnels, pour alléger les déclarations.</p>
+</li>
+<li>CHANGE - Les macros insèrent maintenant un token dans la page, qui sera remplacé par du code html durant on_page_content (évite les problèmes de conversion md -&gt; html de mkdocs -&gt; FIX 1)</li>
+<li>CHANGE - Les workerinit sont ajoutés via on_page_context, juste sous les scripts et le css liés au sql du plugin, pour garantir qu'ils seront toujours dispo avant les sqlide de la page (FIX 2).</li>
+<li>
+<p>CHANGE - Ajout de quelques commentaires ici et là dans le code, car la logique devient plus complexe...</p>
+</li>
+<li>
+<p>DOCS - Arguments de la macro</p>
+</li>
+<li>DOCS - Ajout d'explication pour hide et autoexec</li>
+<li>DOCS - Exemple alternatif (arguments positionnels)</li>
+</ul>
+<h3 id="202">2.0.2</h3>
+<ul>
+<li>FIX - MAJ automatique du rendu des IDE lors des changements d’onglets mkdocs/material.</li>
+<li>ADD - support pour les chemins relatifs au fichier markdown en cours (noms de fichiers sql)</li>
+<li>ADD - Ajouts de la logistique pour tester dans la doc</li>
+<li>CHANGE - Discover and add css and js files automatically</li>
+<li>CHANGE - Remove useless LIBS_PATH</li>
+</ul>
+<h3 id="203">2.0.3</h3>
+<ul>
+<li>CHANGE - Mark as compatible with Python 3.9, update classifiers</li>
+</ul>
+<h3 id="210">2.1.0</h3>
+<ul>
+<li>
+<p>DEV - Add /js and /css to mkdocs watch directories</p>
+</li>
+<li>
+<p>ADD - Light/dark themes for the docs</p>
+</li>
+<li>ADD - Hack to soften the background colors of sqlides in dark mode, without changing anything on CodeMirror side.</li>
+<li>
+<p>ADD - Result tables are now sortable (hidden buttons)</p>
+</li>
+<li>
+<p>FIX - Unsilence errors during <code>load(...)</code> (which was a pain...)</p>
+</li>
+<li>
+<p>FIX - CSS - Gutters kine numbers were going over the top menu header.</p>
+</li>
+<li>
+<p>CHANGE - Update SQLIDE class (renaming to SqlIde on the way)</p>
+</li>
+<li>CHANGE - make <code>base</code> and <code>init</code> arguments work together.</li>
+<li>
+<p>CHANGE - Reorganize <code>Counter.build_sql</code> so that the branches match the execution order in the JS layer.</p>
+</li>
+<li>
+<p>DOCS - Update docs with the new specs</p>
+</li>
+<li>DOCS - Add dev tests (deactivated by default)</li>
+<li>DOCS - Suppress one <code>then</code></li>
 </ul>
 <script src="https://epithumia.github.io/mkdocs-sqlite-console//js/material-tabbed-fix.js"></script>
 

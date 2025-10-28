@@ -28,6 +28,9 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
       
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
       
 
 
@@ -55,7 +58,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -106,6 +116,32 @@
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -878,7 +914,7 @@ fichier <code>mkdocs.yml</code> une ligne du type</p>
 <li>le titre <em>doit</em> être entre guillemets</li>
 <li>les chemins vers les fichiers sont relatifs à la racine du site, ou bien relatifs au dossier contenant la page markdown en cours (v2.0^+^).</li>
 <li>les chemins ne peuvent pas contenir d'espace</li>
-<li>les options base et init sont mutuellement exclusives ; l'option base est prioritaire.</li>
+<li>si les arguments <code>base</code> et <code>init</code> sont tous les deux utilisés, la base est chargée avant que le code du fichier <code>init</code> ne soit exécuté.</li>
 </ul>
 <p>Voir le cas des <a href="#as-macros">utilisations en tant que macro</a>, où les syntaxes diffèrent légèrement.<!-- markdownlint-disable-line MD046 --></p>
 </div>
@@ -903,8 +939,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide1").then(() => {
     const ide = document.querySelector("div#ide1");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
-}).catch(() => {});
+    new SqlIde(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
+}).catch(console.error);
 </script>
 <p>On peut aussi charger une base directement :</p>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;IDE avec une base binaire chargée et code pré-saisi autoexécuté&quot; base=&quot;bases/test.db&quot; sql=&quot;sql/code.sql&quot; autoexec}}
@@ -924,8 +960,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide2").then(() => {
     const ide = document.querySelector("div#ide2");
-    load(ide, 'https://epithumia.github.io/mkdocs-sqlite-console//bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
-}).catch(() => {});
+    new SqlIde(ide, 'https://epithumia.github.io/mkdocs-sqlite-console//bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
+}).catch(console.error);
 </script>
 <h4 id="cacher-lide">Cacher l'IDE</h4>
 <p>Si l'on ne veut que le résultat de la requête sans pour autant afficher l'IDE, il suffit d'ajouter l'option <em>hide</em> :</p>
@@ -946,8 +982,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide3").then(() => {
     const ide = document.querySelector("div#ide3");
-    load(ide, 'https://epithumia.github.io/mkdocs-sqlite-console//bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
-}).catch(() => {});
+    new SqlIde(ide, 'https://epithumia.github.io/mkdocs-sqlite-console//bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
+}).catch(console.error);
 </script>
 <div class="admonition warning">
 <p class="admonition-title">Titre</p>
@@ -970,8 +1006,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide4").then(() => {
     const ide = document.querySelector("div#ide4");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', bdd1);
-}).catch(() => {});
+    new SqlIde(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', bdd1);
+}).catch(console.error);
 </script>
 
 <div id="ide5" >
@@ -989,8 +1025,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide5").then(() => {
     const ide = document.querySelector("div#ide5");
-    load(ide, '/', '', '', bdd1);
-}).catch(() => {});
+    new SqlIde(ide, '/', '', '', bdd1);
+}).catch(console.error);
 </script>
 <h4 id="utilisation-dans-les-admonitions-de-mkdocs-material">Utilisation dans les <em>admonitions</em> de mkdocs-material</h4>
 <p>On peut appeler le code à l'intérieur d'une admonition :</p>
@@ -1015,8 +1051,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide6").then(() => {
     const ide = document.querySelector("div#ide6");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
-}).catch(() => {});
+    new SqlIde(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
+}).catch(console.error);
 </script>
 </div>
 <div class="highlight"><pre><span></span><code>???+ sql &quot;Bloc accordéon avec initialisation et code pré-saisi&quot;
@@ -1040,8 +1076,8 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide7").then(() => {
     const ide = document.querySelector("div#ide7");
-    load(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
-}).catch(() => {});
+    new SqlIde(ide, '/', 'DROP TABLE IF EXISTS employees;\nCREATE TABLE employees\n(\n    id          integer,\n    name        text,\n    designation text,\n    manager     integer,\n    hired_on    date,\n    salary      integer,\n    commission  float,\n    dept        integer\n);\n\nINSERT INTO employees VALUES (1,\'JOHNSON\',\'ADMIN\',6,\'1990-12-17\',18000,NULL,4);\nINSERT INTO employees VALUES (2,\'HARDING\',\'MANAGER\',9,\'1998-02-02\',52000,300,3);\nINSERT INTO employees VALUES (3,\'TAFT\',\'SALES I\',2,\'1996-01-02\',25000,500,3);\nINSERT INTO employees VALUES (4,\'HOOVER\',\'SALES I\',2,\'1990-04-02\',27000,NULL,3);\nINSERT INTO employees VALUES (5,\'LINCOLN\',\'TECH\',6,\'1994-06-23\',22500,1400,4);\nINSERT INTO employees VALUES (6,\'GARFIELD\',\'MANAGER\',9,\'1993-05-01\',54000,NULL,4);\n', '', );
+}).catch(console.error);
 </script>
 </details>
 <h2 id="as-macros">Usage avec le plugin des macros MkDocs ou Pyodide-MkDocs-Theme</h2>
@@ -1127,7 +1163,7 @@ chargée avec la syntaxe suivante :</p>
 <div id="ide8" >
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">-- Fichier de base bases/basem.db introuvable.</textarea>
+<textarea id="sqlcommands" class="sqlcommands">Fichier -- Fichier de base bases/basem.db introuvable. introuvable.</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -1135,15 +1171,15 @@ chargée avec la syntaxe suivante :</p>
 <script>
   onElementLoaded("div#ide8").then(() => {
     const ide = document.querySelector("div#ide8");
-    load(ide, '/', '', '', );
-}).catch(() => {});
+    new SqlIde(ide, '/', '', '', );
+}).catch(console.error);
 </script>
 <div class="highlight"><pre><span></span><code>{{sqlide titre=&quot;Erreur fichier sql manquant&quot; init=sql/initm.sql sql=sql/codem.sql }}
 </code></pre></div>
 <div id="ide9" >
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">-- Fichier d\'initialisation sql/initm.sql introuvable.</textarea>
+<textarea id="sqlcommands" class="sqlcommands">Fichier -- Fichier d\'initialisation sql/initm.sql introuvable. introuvable.</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -1151,8 +1187,8 @@ chargée avec la syntaxe suivante :</p>
 <script>
   onElementLoaded("div#ide9").then(() => {
     const ide = document.querySelector("div#ide9");
-    load(ide, '/', '', '', );
-}).catch(() => {});
+    new SqlIde(ide, '/', '', '', );
+}).catch(console.error);
 </script>
 
 <script src="https://epithumia.github.io/mkdocs-sqlite-console//js/material-tabbed-fix.js"></script>
