@@ -110,3 +110,7 @@
 ### 2.1.1
 
 - FIX - Missing CDN dependency
+
+### 2.1.2
+
+- FIX - More valid extensions for database files

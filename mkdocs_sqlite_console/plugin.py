@@ -164,7 +164,7 @@ class Counter:
             if not os.path.isfile(path):
                 continue
 
-            if path.endswith(".db"):
+            if path.endswith((".db", ".sdb", ".sqlite", ".db3", ".s3db", ".sqlite3", ".sl3", ".db2", ".s2db", ".sqlite2", ".sl2")):
                 # .db are not readable with utf-8, but no need of their content so no problem.
                 content = "_dummy"
             else:
